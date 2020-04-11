@@ -29,11 +29,74 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:dough/business_logic/view_models/choose_favorites_viewmodel.dart';
+import 'package:dough/services/service_locator.dart';
+import 'package:provider/provider.dart';
 
-class ChooseFavoriteCurrencyScreen extends StatelessWidget {
+class ChooseFavoriteCurrencyScreen extends StatefulWidget {
+  @override
+  _ChooseFavoriteCurrencyScreenState createState() =>
+      _ChooseFavoriteCurrencyScreenState();
+}
+
+class _ChooseFavoriteCurrencyScreenState
+    extends State<ChooseFavoriteCurrencyScreen> {
+
+
+  ChooseFavoritesViewModel model = serviceLocator<ChooseFavoritesViewModel>();
+
+
+  @override
+  void initState() {
+    model.loadData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Choose Currencies'),
+      ),
+      body: buildListView(model),
+    );
   }
+
+  Widget buildListView(ChooseFavoritesViewModel viewModel) {
+    // ChangeNotifier is a Provider that listens for changes
+    return ChangeNotifierProvider<ChooseFavoritesViewModel>(
+      
+      create: (context) => viewModel,
+      // Consumer rebuilds the widget tree below it when there are changes
+      child: Consumer<ChooseFavoritesViewModel>(
+        builder: (context, model, child) => ListView.builder(
+          itemCount: model.choices.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: SizedBox(
+                  width: 60,
+                  child: Text(
+                    '${model.choices[index].flag}',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+                // using the data in model, build the UI
+                title: Text('${model.choices[index].alphabeticCode}'),
+                subtitle: Text('${model.choices[index].longName}'),
+                trailing: (model.choices[index].isFavorite)
+                    ? Icon(Icons.favorite, color: Colors.red)
+                    : Icon(Icons.favorite_border),
+                onTap: () {
+                  // Call method in model directly
+                  model.toggleFavoriteStatus(index);
+                },
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
 }

@@ -30,7 +30,10 @@
 
 import 'package:get_it/get_it.dart';
 import 'currency/currency_service.dart';
-import 'currency/currency_service_fake.dart';
+import 'currency/currency_service_implementation.dart';
+import 'web_api/web_api.dart';
+//import 'web_api/web_api_fake.dart';
+import 'web_api/web_api_implementation.dart';
 import 'storage/storage_service.dart';
 import 'storage/storage_service_implementation.dart';
 import '../business_logic/view_models/calculate_screen_viewmodel.dart';
@@ -38,11 +41,23 @@ import '../business_logic/view_models/choose_favorites_viewmodel.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
+// Call this first in main.dart before building the UI
 void setupServiceLocator() {
+  //serviceLocator.registerLazySingleton<WebApi>(() => FakeWebApi());
+  serviceLocator.registerLazySingleton<WebApi>(() => WebApiImpl());
 
-  serviceLocator.registerLazySingleton<StorageService>(() => StorageServiceImpl());
-  serviceLocator.registerLazySingleton<CurrencyService>(() => CurrencyServiceFake());
+  //Lazy means the singleton won't be instantiated until you use it for the first time
+  serviceLocator
+      .registerLazySingleton<StorageService>(() => StorageServiceImpl());
 
-  serviceLocator.registerFactory<CalculateScreenViewModel>(() => CalculateScreenViewModel());
-  serviceLocator.registerFactory<ChooseFavoritesViewModel>(() => ChooseFavoritesViewModel());
+  //serviceLocator.registerLazySingleton<CurrencyService>(() => CurrencyServiceFake());
+  serviceLocator
+      .registerLazySingleton<CurrencyService>(() => CurrencyServiceImpl());
+
+  //Factory means that every time you request a view model from the service locator,
+  // it gives you a new instance of the view model.
+  serviceLocator.registerFactory<CalculateScreenViewModel>(
+      () => CalculateScreenViewModel());
+  serviceLocator.registerFactory<ChooseFavoritesViewModel>(
+      () => ChooseFavoritesViewModel());
 }

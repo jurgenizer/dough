@@ -33,6 +33,7 @@ import 'package:dough/services/service_locator.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
 
 void main() {
+  // call setupServiceLocator() first so entire app has access before building UI
   setupServiceLocator();
   runApp(MyApp());
 }
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Moola X',
+      debugShowCheckedModeBanner: false,
+      title: 'Dough',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
