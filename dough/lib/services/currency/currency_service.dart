@@ -28,8 +28,6 @@
  * THE SOFTWARE.
  */
 
-
-
 import 'package:dough/business_logic/models/currency.dart';
 import 'package:dough/business_logic/models/rate.dart';
 

@@ -59,7 +59,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Moola X'),
+            title: Text('Dough'),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.favorite),
