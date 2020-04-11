@@ -28,24 +28,48 @@
  * THE SOFTWARE.
  */
 
-import 'package:flutter/material.dart';
+import 'package:dough/business_logic/models/currency.dart';
+import 'package:dough/business_logic/models/rate.dart';
+import 'package:dough/services/currency/currency_service.dart';
+import 'package:dough/business_logic/utils/iso_data.dart';
 import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
+// 1
+import 'package:flutter/foundation.dart';
+
+// 2
+class ChooseFavoritesViewModel extends ChangeNotifier {
+
+  // 3
+  final CurrencyService _currencyService = serviceLocator<CurrencyService>();
+
+  List<FavoritePresentation> _choices = [];
+  List<Currency> _favorites = [];
+
+  // 4
+  List<FavoritePresentation> get choices => _choices;
+
+  void loadData() async {
+    // ...
+
+    // 5
+    notifyListeners();
+  }
+
+  void toggleFavoriteStatus(int choiceIndex) {
+    // ...
+
+    // 5
+    notifyListeners();
+  }
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
-  }
+class FavoritePresentation {
+  final String flag;
+  final String alphabeticCode;
+  final String longName;
+  bool isFavorite;
+
+  FavoritePresentation(
+      {this.flag, this.alphabeticCode, this.longName, this.isFavorite,});
 }

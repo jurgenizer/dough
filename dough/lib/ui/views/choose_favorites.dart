@@ -29,23 +29,11 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
-}
+class ChooseFavoriteCurrencyScreen extends StatelessWidget {
 
-class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
+    return Container();
   }
 }

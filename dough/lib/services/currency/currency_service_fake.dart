@@ -28,24 +28,27 @@
  * THE SOFTWARE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:dough/business_logic/models/currency.dart';
+import 'package:dough/business_logic/models/rate.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
-}
+import 'currency_service.dart';
 
-class MyApp extends StatelessWidget {
+// This class is just used temporarily during the tutorial so that the app can
+// run without crashing before the WebApi service is finished.
+class CurrencyServiceFake implements CurrencyService {
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
+  Future<List<Rate>> getAllExchangeRates({String base}) async {
+    return [];
+  }
+
+  @override
+  Future<List<Currency>> getFavoriteCurrencies() async {
+    return [];
+  }
+
+  @override
+  Future<void> saveFavoriteCurrencies(List<Currency> data) async {
+
   }
 }

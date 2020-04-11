@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Razeware LLC and Jurgen Geitner
+ * Copyright (c) 2020 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,24 +28,21 @@
  * THE SOFTWARE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:dough/business_logic/models/currency.dart';
+import 'package:dough/business_logic/models/rate.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
-}
+// This is the contract that all storage services must follow. Using an abstract
+// class like this allows you to swap concrete implementations. This is useful
+// for separating architectural layers. It also makes testing and development
+// easier because you can provide a mock implementation or fake data.
+abstract class StorageService {
+  Future cacheExchangeRateData(List<Rate> data);
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
-  }
+  Future<List<Rate>> getExchangeRateData();
+
+  Future<List<Currency>> getFavoriteCurrencies();
+
+  Future saveFavoriteCurrencies(List<Currency> data);
+
+  Future<bool> isExpiredCache();
 }

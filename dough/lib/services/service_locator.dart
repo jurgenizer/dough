@@ -28,24 +28,21 @@
  * THE SOFTWARE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:get_it/get_it.dart';
+import 'currency/currency_service.dart';
+import 'currency/currency_service_fake.dart';
+import 'storage/storage_service.dart';
+import 'storage/storage_service_implementation.dart';
+import '../business_logic/view_models/calculate_screen_viewmodel.dart';
+import '../business_logic/view_models/choose_favorites_viewmodel.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
-}
+GetIt serviceLocator = GetIt.instance;
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
-  }
+void setupServiceLocator() {
+
+  serviceLocator.registerLazySingleton<StorageService>(() => StorageServiceImpl());
+  serviceLocator.registerLazySingleton<CurrencyService>(() => CurrencyServiceFake());
+
+  serviceLocator.registerFactory<CalculateScreenViewModel>(() => CalculateScreenViewModel());
+  serviceLocator.registerFactory<ChooseFavoritesViewModel>(() => ChooseFavoritesViewModel());
 }

@@ -28,24 +28,17 @@
  * THE SOFTWARE.
  */
 
-import 'package:flutter/material.dart';
-import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
 
-void main() {
-  setupServiceLocator();
-  runApp(MyApp());
-}
+class Currency {
+  // Use an ISO alphabetic code.
+  final String isoCode;
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Moola X',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
+  // The amount of [isoCode] currency.
+  double amount;
+
+  Currency(this.isoCode, {this.amount = 0}) {
+    if (isoCode.length != 3)
+      throw ArgumentError('The ISO code must have a length of 3.');
+    if (amount < 0) throw ArgumentError('amount cannot be negative');
   }
 }
