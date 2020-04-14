@@ -32,6 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/choose_favorites_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class ChooseFavoriteCurrencyScreen extends StatefulWidget {
   @override
@@ -52,6 +53,7 @@ class _ChooseFavoriteCurrencyScreenState
     super.initState();
   }
 
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +63,36 @@ class _ChooseFavoriteCurrencyScreenState
       body: buildListView(model),
     );
   }
+  */
+
+  Widget build(BuildContext context) {
+    return NeumorphicTheme(
+      theme: NeumorphicThemeData(
+        baseColor: Color(0xFFE5E5E5),
+        depth:20,
+        intensity: 1,
+        lightSource: LightSource.top,
+      ),
+      usedTheme: UsedTheme.LIGHT,
+      child: Material(
+        child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              colors: [
+                Color(0xFFF1F1F1),
+                Color(0xFFCFCFCF),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )),
+            child:buildListView(model),),
+      ),
+    );
+  }
+
+
+
+
 
   Widget buildListView(ChooseFavoritesViewModel viewModel) {
     // ChangeNotifier is a Provider that listens for changes

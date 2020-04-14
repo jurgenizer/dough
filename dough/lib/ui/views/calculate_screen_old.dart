@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Razeware LLC and Jurgen Geitner
+ * Copyright (c) 2020 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,8 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
+
 import 'choose_favorites.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -52,16 +52,14 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     super.initState();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CalculateScreenViewModel>(
       create: (context) => model,
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
-          /*
           appBar: AppBar(
-            title: Text('Dough Currency Converter'),
+            title: Text('Moola X'),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.favorite),
@@ -76,39 +74,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               )
             ],
           ),
-          */
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               baseCurrencyTitle(model),
               baseCurrencyTextField(model),
               quoteCurrencyList(model),
-              favoriteButton(model),
             ],
           ),
         ),
       ),
     );
   }
-  
-  Padding favoriteButton(CalculateScreenViewModel model) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child:  IconButton(
-                icon: Icon(Icons.favorite),
-                iconSize: 36.0,
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChooseFavoriteCurrencyScreen()),
-                  );
-                  model.refreshFavorites();
-                },
-                ),
-    );
-  }
-  
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(

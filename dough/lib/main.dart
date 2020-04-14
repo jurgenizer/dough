@@ -31,6 +31,7 @@
 import 'package:flutter/material.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
   // call setupServiceLocator() first so entire app has access before building UI
@@ -41,13 +42,31 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /* old
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dough',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.blue,
       ),
       home: CalculateCurrencyScreen(),
+    );
+    */
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Dough',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: NeumorphicTheme(
+          usedTheme: UsedTheme.LIGHT,
+          theme: NeumorphicThemeData(
+            baseColor: Color(0xFFFFFFFF),
+            intensity: 0.5,
+            lightSource: LightSource.topLeft,
+            depth: 10,
+          ),
+          child: CalculateCurrencyScreen()),
     );
   }
 }
