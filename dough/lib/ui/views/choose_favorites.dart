@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+import 'package:dough/ui/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/choose_favorites_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
@@ -42,10 +43,7 @@ class ChooseFavoriteCurrencyScreen extends StatefulWidget {
 
 class _ChooseFavoriteCurrencyScreenState
     extends State<ChooseFavoriteCurrencyScreen> {
-
-
   ChooseFavoritesViewModel model = serviceLocator<ChooseFavoritesViewModel>();
-
 
   @override
   void initState() {
@@ -65,39 +63,34 @@ class _ChooseFavoriteCurrencyScreenState
   }
   */
 
+  @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(
-        baseColor: Color(0xFFE5E5E5),
-        depth:20,
-        intensity: 1,
-        lightSource: LightSource.top,
-      ),
-      usedTheme: UsedTheme.LIGHT,
-      child: Material(
-        child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [
-                Color(0xFFF1F1F1),
-                Color(0xFFCFCFCF),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            )),
-            child:buildListView(model),),
+      theme: NeumorphicThemeData(depth: 8),
+      child: Scaffold(
+        backgroundColor: NeumorphicColors.background,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  TopBar(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
-
-
-
-
   Widget buildListView(ChooseFavoritesViewModel viewModel) {
     // ChangeNotifier is a Provider that listens for changes
     return ChangeNotifierProvider<ChooseFavoritesViewModel>(
-      
       create: (context) => viewModel,
       // Consumer rebuilds the widget tree below it when there are changes
       child: Consumer<ChooseFavoritesViewModel>(
@@ -130,5 +123,4 @@ class _ChooseFavoriteCurrencyScreenState
       ),
     );
   }
-
 }

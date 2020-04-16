@@ -14,6 +14,9 @@ class WebApiImpl implements WebApi {
   Future<List<Rate>> fetchExchangeRates() async {
     if (_rateCache == null) {
       print('getting rates from the web');
+
+      // TO DO: activity indicator
+      
       final uri = Uri.https(_host, _path);
       final results = await http.get(uri, headers: _headers);
       final jsonObject = json.decode(results.body);
