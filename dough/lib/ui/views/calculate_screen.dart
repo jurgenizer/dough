@@ -31,6 +31,7 @@
 import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -58,24 +59,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       create: (context) => model,
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
-          /*
-          appBar: AppBar(
-            title: Text('Dough Currency Converter'),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.favorite),
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChooseFavoriteCurrencyScreen()),
-                  );
-                  model.refreshFavorites();
-                },
-              )
-            ],
-          ),
-          */
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -86,11 +69,14 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           ),
           bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
+            elevation: 4.0,
+            notchMargin: 6.0,
             child: Container(
-              height: 40.0,
+              height: 30.0,
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            elevation: 4.0,
             onPressed: () async {
               await Navigator.push(
                 context,
@@ -151,6 +137,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             contentPadding: EdgeInsets.all(20),
           ),
           keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            // Only numbers can be entered
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
           onChanged: (text) {
             model.calculateExchange(text);
           },

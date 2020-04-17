@@ -18,10 +18,13 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
   );
 
+ 
+
   static const neumorphicAccentColor = Colors.cyan;
-
-  static const appBackground = Color(0xffd0d0d0);
-
+  static const neumorphicBaseColor = Color(0xFFF8F9FC);
+  static const neumorphicVariantColor = Colors.black38;
+  
+ 
   static const closeButtonUnpressed = Color(0xff101010);
 
   static const closeButtonPressed = Color(0xff808080);

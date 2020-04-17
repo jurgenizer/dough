@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+import 'package:dough/ui/styles.dart';
 import 'package:dough/ui/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/choose_favorites_viewmodel.dart';
@@ -97,8 +98,8 @@ class _ChooseFavoriteCurrencyScreenState
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
-              margin: EdgeInsets.all(8),
-              elevation: 2.0,
+              margin: EdgeInsets.all(12),
+              elevation: 4.0,
               child: ListTile(
                 leading: SizedBox(
                   width: 60,
@@ -111,7 +112,7 @@ class _ChooseFavoriteCurrencyScreenState
                 title: Text('${model.choices[index].alphabeticCode}'),
                 subtitle: Text('${model.choices[index].longName}'),
                 trailing: (model.choices[index].isFavorite)
-                    ? Icon(Icons.favorite, color: Colors.red)
+                    ? Icon(Icons.favorite, color: Styles.neumorphicAccentColor)
                     : Icon(Icons.favorite_border),
                 onTap: () {
                   // Call method in model directly

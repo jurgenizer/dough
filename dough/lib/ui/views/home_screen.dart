@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
 import 'package:dough/ui/views/settings_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
   @override
@@ -25,7 +24,6 @@ class HomeScreenState extends State<HomeScreen> {
         child: widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Styles.closeButtonUnpressed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
           BottomNavigationBarItem(
@@ -33,6 +31,8 @@ class HomeScreenState extends State<HomeScreen> {
         ],
         currentIndex: selectedIndex,
         fixedColor: Styles.neumorphicAccentColor,
+        elevation: 4.0,
+        unselectedItemColor: Styles.closeButtonUnpressed,
         onTap: onItemTapped,
       ),
     );

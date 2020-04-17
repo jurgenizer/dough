@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+import 'package:dough/ui/styles.dart';
 import 'package:dough/ui/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dough/services/service_locator.dart';
@@ -42,32 +43,24 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /* old
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dough',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: CalculateCurrencyScreen(),
-    );
-    */
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Dough',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Styles.neumorphicAccentColor,
       ),
       home: NeumorphicTheme(
-          usedTheme: UsedTheme.LIGHT,
-          theme: NeumorphicThemeData(
-            baseColor: Color(0xFFFFFFFF),
-            accentColor:  Colors.cyan,
+        usedTheme: UsedTheme.LIGHT,
+        theme: NeumorphicThemeData(
+            defaultTextColor: Color(0xFF303E57),
+            accentColor: Styles.neumorphicAccentColor,
+            variantColor: Styles.neumorphicVariantColor,
+            baseColor: Styles.neumorphicBaseColor,
+            depth: 4.0,
             intensity: 0.5,
-            lightSource: LightSource.topLeft,
-            depth: 8,
-          ),
-          child: HomeScreen()),
+            lightSource: LightSource.topLeft),
+        child: NeumorphicBackground(child: HomeScreen()),
+      ),
     );
   }
 }
