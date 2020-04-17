@@ -68,19 +68,18 @@ class _ChooseFavoriteCurrencyScreenState
     return NeumorphicTheme(
       theme: NeumorphicThemeData(depth: 8),
       child: Scaffold(
-        backgroundColor: NeumorphicColors.background,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  TopBar(),
-                ],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                TopBar(),
+                Expanded(
+                  child: buildListView(model),
+                ),
+              ],
             ),
           ),
         ),
@@ -98,6 +97,8 @@ class _ChooseFavoriteCurrencyScreenState
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
+              margin: EdgeInsets.all(8),
+              elevation: 2.0,
               child: ListTile(
                 leading: SizedBox(
                   width: 60,

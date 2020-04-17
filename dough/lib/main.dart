@@ -28,9 +28,9 @@
  * THE SOFTWARE.
  */
 
+import 'package:dough/ui/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dough/services/service_locator.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
@@ -62,11 +62,12 @@ class MyApp extends StatelessWidget {
           usedTheme: UsedTheme.LIGHT,
           theme: NeumorphicThemeData(
             baseColor: Color(0xFFFFFFFF),
+            accentColor:  Colors.cyan,
             intensity: 0.5,
             lightSource: LightSource.topLeft,
-            depth: 10,
+            depth: 8,
           ),
-          child: CalculateCurrencyScreen()),
+          child: HomeScreen()),
     );
   }
 }
