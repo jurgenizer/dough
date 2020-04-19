@@ -29,10 +29,12 @@ class HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), title: Text('Settings')),
         ],
+        type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
-        fixedColor: Styles.neumorphicAccentColor,
+        //fixedColor: Styles.neumorphicAccentColor,
+        selectedItemColor: Styles.neumorphicAccentColor,
+        unselectedItemColor: Styles.neumorphicGreyColor,
         elevation: 4.0,
-        unselectedItemColor: Styles.closeButtonUnpressed,
         onTap: onItemTapped,
       ),
     );

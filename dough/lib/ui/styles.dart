@@ -23,8 +23,8 @@ abstract class Styles {
   static const neumorphicAccentColor = Colors.cyan;
   static const neumorphicBaseColor = Color(0xFFF8F9FC);
   static const neumorphicVariantColor = Colors.black38;
-  
- 
+  static const neumorphicDefaultTextColor = Color(0xFF303E57);
+  static const neumorphicGreyColor = Color(0xFFC1CDE5);
   static const closeButtonUnpressed = Color(0xff101010);
 
   static const closeButtonPressed = Color(0xff808080);

@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
       home: NeumorphicTheme(
         usedTheme: UsedTheme.LIGHT,
         theme: NeumorphicThemeData(
-            defaultTextColor: Color(0xFF303E57),
+            defaultTextColor: Styles.neumorphicDefaultTextColor,
             accentColor: Styles.neumorphicAccentColor,
             variantColor: Styles.neumorphicVariantColor,
             baseColor: Styles.neumorphicBaseColor,

@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+import 'package:dough/ui/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
@@ -58,40 +59,49 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     return ChangeNotifierProvider<CalculateScreenViewModel>(
       create: (context) => model,
       child: Consumer<CalculateScreenViewModel>(
-        builder: (context, model, child) => Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              baseCurrencyTitle(model),
-              baseCurrencyTextField(model),
-              quoteCurrencyList(model),
-            ],
+          builder: (context, model, child) => Scaffold(
+                body: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      //  mainAxisAlignment: MainAxisAlignment.start,
+                      // mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                     _buildButton(model),
+                        baseCurrencyTitle(model),
+                        baseCurrencyTextField(model),
+                        quoteCurrencyList(model),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+
           ),
-          bottomNavigationBar: BottomAppBar(
-            shape: const CircularNotchedRectangle(),
-            elevation: 4.0,
-            notchMargin: 6.0,
-            child: Container(
-              height: 30.0,
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            elevation: 4.0,
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ChooseFavoriteCurrencyScreen()),
-              );
-              model.refreshFavorites();
-            },
-            tooltip: 'Favourite currencies',
-            child: Icon(Icons.favorite_border),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-        ),
+    );
+  }
+
+  Widget _buildButton(CalculateScreenViewModel model) {
+    return NeumorphicButton(
+      boxShape: NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(8)),
+      style: NeumorphicStyle(shape: NeumorphicShape.flat,
+      depth: 20,),
+      padding: EdgeInsets.all(12.0),
+      child: Icon(
+        Icons.favorite_border,
+        color: Color(0xFFC1CDE5),
+        size: 36.0,
+        semanticLabel: 'Choose favourite currency',
       ),
+      onClick: () async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChooseFavoriteCurrencyScreen()),
+        );
+        model.refreshFavorites();
+      },
     );
   }
 

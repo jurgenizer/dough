@@ -15,7 +15,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 18.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Stack(
         alignment: Alignment.center,
         children: [
