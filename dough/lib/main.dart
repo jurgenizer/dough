@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Dough',
       theme: ThemeData(
-        primarySwatch: Styles.neumorphicAccentColor,
+        brightness: Brightness.light,
+        primaryColor: Styles.neumorphicVariantColor,
+        accentColor: Styles.neumorphicAccentColor,
       ),
       home: NeumorphicTheme(
         usedTheme: UsedTheme.LIGHT,

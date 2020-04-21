@@ -90,7 +90,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       padding: EdgeInsets.all(12.0),
       child: Icon(
         Icons.favorite_border,
-        color: Color(0xFFC1CDE5),
+        color: Styles.neumorphicLightGreyColor,
         size: 36.0,
         semanticLabel: 'Choose favourite currency',
       ),
