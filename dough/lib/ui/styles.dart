@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-  static const minorText = TextStyle(
-    color: Color.fromRGBO(128, 128, 128, 1),
-    fontFamily: 'NotoSans',
-    fontSize: 16,
+  static const baseCurrencyTitleText = TextStyle(
+    color: Color(0xFF4d4d4d), 
+    fontSize: 25,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
@@ -18,16 +17,15 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
   );
 
-  static const neumorphicAccentColor = Colors.blueGrey;
+  static const neumorphicAccentColor = Colors.orange;
   static const neumorphicBaseColor = Color(0xFFF8F9FC);
-  static const neumorphicVariantColor = Color(0xFF01579B);
-  static const neumorphicDefaultTextColor = Color(0xFF303E57);
-  static const neumorphicGreyColor = Color(0xFF949494);
+  static const neumorphicVariantColor = Colors.orangeAccent;
+  static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
+  static const neumorphicGreyColor = Color(0xFF4d4d4d);
   static const neumorphicLightGreyColor = Color(0xFFD6D6D6);
    
   static const neumorphicBlackColor = Colors.black87;
 
-  static const closeButtonPressed = Color(0xff808080);
 
   static const Color searchIconColor = Color.fromRGBO(128, 128, 128, 1);
 

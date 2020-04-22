@@ -68,7 +68,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                       // mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                     _buildButton(model),
+                        _buildButton(model),
                         baseCurrencyTitle(model),
                         baseCurrencyTextField(model),
                         quoteCurrencyList(model),
@@ -76,22 +76,23 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     ),
                   ),
                 ),
-              )
-
-          ),
+              )),
     );
   }
 
   Widget _buildButton(CalculateScreenViewModel model) {
     return NeumorphicButton(
-      boxShape: NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(8)),
-      style: NeumorphicStyle(shape: NeumorphicShape.flat,
-      depth: 20,),
+      boxShape:
+          NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(8)),
+      style: NeumorphicStyle(
+        shape: NeumorphicShape.flat,
+        depth: 20,
+        color: Styles.neumorphicBaseColor,
+      ),
       padding: EdgeInsets.all(12.0),
       child: Icon(
         Icons.favorite_border,
-        color: Styles.neumorphicLightGreyColor,
-        size: 36.0,
+        color: Styles.neumorphicGreyColor,
         semanticLabel: 'Choose favourite currency',
       ),
       onClick: () async {
@@ -110,7 +111,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
       child: Text(
         '${model.baseCurrency.longName}',
-        style: TextStyle(fontSize: 25),
+        style: Styles.baseCurrencyTitleText
       ),
     );
   }
@@ -124,6 +125,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: TextField(
+          textInputAction: TextInputAction.done,
           style: TextStyle(fontSize: 20),
           controller: _controller,
           decoration: InputDecoration(
@@ -149,7 +151,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             // Only numbers can be entered
-            WhitelistingTextInputFormatter.digitsOnly
+            // WhitelistingTextInputFormatter.digitsOnly
           ],
           onChanged: (text) {
             model.calculateExchange(text);

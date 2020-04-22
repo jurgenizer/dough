@@ -48,8 +48,10 @@ class MyApp extends StatelessWidget {
       title: 'Dough',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Styles.neumorphicVariantColor,
-        accentColor: Styles.neumorphicAccentColor,
+        primarySwatch: Styles.neumorphicAccentColor,
+        accentColor: Styles.neumorphicVariantColor,
+        buttonColor: Styles.neumorphicAccentColor,
+        inputDecorationTheme: 
       ),
       home: NeumorphicTheme(
         usedTheme: UsedTheme.LIGHT,
