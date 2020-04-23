@@ -70,8 +70,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                       children: <Widget>[
                         _buildButton(model),
                         baseCurrencyTitle(model),
-                        baseCurrencyTextField(model),
-                        quoteCurrencyList(model),
+                        _baseCurrencyTextField(model),
+                        _quoteCurrencyList(model),
                       ],
                     ),
                   ),
@@ -116,15 +116,13 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
-  Padding baseCurrencyTextField(CalculateScreenViewModel model) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 32, right: 32, bottom: 32),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: TextField(
+  Widget _baseCurrencyTextField(CalculateScreenViewModel model) {
+    return Neumorphic(
+       margin: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+          boxShape: NeumorphicBoxShape.stadium(),
+          style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
+          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
+          child: TextField(
           textInputAction: TextInputAction.done,
           style: TextStyle(fontSize: 20),
           controller: _controller,
@@ -157,11 +155,12 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             model.calculateExchange(text);
           },
         ),
-      ),
     );
   }
+    
 
-  Expanded quoteCurrencyList(CalculateScreenViewModel model) {
+
+  Expanded _quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
       child: ListView.builder(
         itemCount: model.quoteCurrencies.length,

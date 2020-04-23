@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Styles.neumorphicAccentColor,
         accentColor: Styles.neumorphicVariantColor,
         buttonColor: Styles.neumorphicAccentColor,
-        inputDecorationTheme: 
       ),
       home: NeumorphicTheme(
         usedTheme: UsedTheme.LIGHT,
