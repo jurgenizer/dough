@@ -8,7 +8,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
 
-  static const double kToolbarHeight = 110.0;
+  static const double kToolbarHeight = 90.0;
 
   const TopBar({this.title = "", this.actions});
 

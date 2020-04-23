@@ -9,6 +9,11 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
   );
 
+  static const bottomNavigationBarText = TextStyle(
+  fontSize: 19, 
+  fontWeight: FontWeight.normal,
+  );
+
   static const cardTitleText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
     fontFamily: 'NotoSans',
@@ -17,9 +22,9 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
   );
 
-  static const neumorphicAccentColor = Colors.orange;
+  static const neumorphicAccentColor = Colors.deepOrange;
   static const neumorphicBaseColor = Color(0xFFF8F9FC);
-  static const neumorphicVariantColor = Colors.orangeAccent;
+  static const neumorphicVariantColor = Colors.deepOrangeAccent;
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
   static const neumorphicGreyColor = Color(0xFF4d4d4d);
   static const neumorphicLightGreyColor = Color(0xFFD6D6D6);

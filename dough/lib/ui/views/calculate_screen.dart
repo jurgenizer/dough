@@ -71,6 +71,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                         _buildButton(model),
                         baseCurrencyTitle(model),
                         _baseCurrencyTextField(model),
+                      
                         _quoteCurrencyList(model),
                       ],
                     ),
@@ -81,96 +82,116 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   Widget _buildButton(CalculateScreenViewModel model) {
-    return NeumorphicButton(
-      boxShape:
-          NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(8)),
+    return Neumorphic(
       style: NeumorphicStyle(
-        shape: NeumorphicShape.flat,
         depth: 20,
+        intensity: 0.4,
         color: Styles.neumorphicBaseColor,
       ),
-      padding: EdgeInsets.all(12.0),
-      child: Icon(
-        Icons.favorite_border,
-        color: Styles.neumorphicGreyColor,
-        semanticLabel: 'Choose favourite currency',
+      boxShape:
+          NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(8)),
+      child: NeumorphicButton(
+        boxShape: NeumorphicBoxShape.roundRect(
+            borderRadius: BorderRadius.circular(8)),
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          depth: -1,
+          color: Styles.neumorphicBaseColor,
+        ),
+        padding: EdgeInsets.all(12.0),
+        child: Icon(
+          Icons.favorite_border,
+          color: Styles.neumorphicGreyColor,
+          semanticLabel: 'Choose favourite currency',
+        ),
+        onClick: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChooseFavoriteCurrencyScreen()),
+          );
+          model.refreshFavorites();
+        },
       ),
-      onClick: () async {
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChooseFavoriteCurrencyScreen()),
-        );
-        model.refreshFavorites();
-      },
     );
   }
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
-      child: Text(
-        '${model.baseCurrency.longName}',
-        style: Styles.baseCurrencyTitleText
+      padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 4),
+      child: Text('${model.baseCurrency.longName}',
+          style: Styles.baseCurrencyTitleText),
+    );
+  }
+
+
+  Widget _baseCurrencyTextField(CalculateScreenViewModel model) {
+    return Neumorphic(
+      margin: EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 26),
+      boxShape: NeumorphicBoxShape.stadium(),
+      style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+      child: TextField(
+        textInputAction: TextInputAction.done,
+        style: TextStyle(fontSize: 20),
+        controller: _controller,
+        decoration: InputDecoration(
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: SizedBox(
+              width: 60,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${model.baseCurrency.flag}',
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
+            ),
+          ),
+          labelStyle: TextStyle(fontSize: 22),
+          hintStyle: TextStyle(fontSize: 22),
+          hintText: 'Amount to exchange',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(20),
+        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          // Only numbers can be entered
+          // WhitelistingTextInputFormatter.digitsOnly
+        ],
+        onChanged: (text) {
+          model.calculateExchange(text);
+        },
       ),
     );
   }
 
-  Widget _baseCurrencyTextField(CalculateScreenViewModel model) {
-    return Neumorphic(
-       margin: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
-          boxShape: NeumorphicBoxShape.stadium(),
-          style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
-          child: TextField(
-          textInputAction: TextInputAction.done,
-          style: TextStyle(fontSize: 20),
-          controller: _controller,
-          decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: SizedBox(
-                width: 60,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${model.baseCurrency.flag}',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
-              ),
-            ),
-            labelStyle: TextStyle(fontSize: 20),
-            hintStyle: TextStyle(fontSize: 20),
-            hintText: 'Amount to exchange',
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.all(20),
-          ),
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            // Only numbers can be entered
-            // WhitelistingTextInputFormatter.digitsOnly
-          ],
-          onChanged: (text) {
-            model.calculateExchange(text);
-          },
-        ),
-    );
-  }
-    
-
-
   Expanded _quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
+     child: Neumorphic(
+        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+      style: NeumorphicStyle(
+        depth: -11,
+        intensity: 0.5,
+        color: Styles.neumorphicBaseColor,
+      ),
+     
+      boxShape:
+          NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(12)),
+      
       child: ListView.builder(
         itemCount: model.quoteCurrencies.length,
         itemBuilder: (context, index) {
           return Card(
+            color: Colors.blueGrey[50],
+            elevation: 6,
+            borderOnForeground: false,
             child: ListTile(
               leading: SizedBox(
                 width: 60,
                 child: Text(
-                  '${model.quoteCurrencies[index].flag}',
+                  '${model.quoteCurrencies[index].alphabeticCode}',
                   style: TextStyle(fontSize: 30),
                 ),
               ),
@@ -184,6 +205,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           );
         },
       ),
+     ),
     );
   }
 }

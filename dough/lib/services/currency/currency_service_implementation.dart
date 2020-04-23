@@ -43,7 +43,7 @@ class CurrencyServiceImpl implements CurrencyService {
   WebApi _webApi = serviceLocator<WebApi>();
   StorageService _storageService = serviceLocator<StorageService>();
 
-  static final defaultFavorites = [Currency('EUR'), Currency('CHF')];
+  static final defaultFavorites = [Currency('ZAR'), Currency('EUR')];
 
   @override
   Future<List<Rate>> getAllExchangeRates({String base}) async {
