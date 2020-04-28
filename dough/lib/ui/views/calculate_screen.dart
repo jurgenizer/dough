@@ -64,7 +64,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
-                      //  mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                       // mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -133,6 +133,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 16),
       child: TextField(
         textInputAction: TextInputAction.done,
+        enableSuggestions: false,
+        autocorrect: false,
         style: TextStyle(fontSize: 20),
         controller: _controller,
         decoration: InputDecoration(
@@ -189,7 +191,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             borderOnForeground: false,
             child: ListTile(
               leading: SizedBox(
-                width: 60,
+                width: 90,
                 child: Text(
                   '${model.quoteCurrencies[index].alphabeticCode}',
                   style: TextStyle(fontSize: 30),
