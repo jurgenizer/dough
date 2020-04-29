@@ -61,6 +61,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
           builder: (context, model, child) => Scaffold(
                 body: SafeArea(
+                  maintainBottomViewPadding: true,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -68,11 +69,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                       // mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        _buildButton(model),
+                        buildButton(model),
                         baseCurrencyTitle(model),
-                        _baseCurrencyTextField(model),
-                      
-                        _quoteCurrencyList(model),
+                        baseCurrencyTextField(model),
+                        quoteCurrencyList(model),
                       ],
                     ),
                   ),
@@ -81,7 +81,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
-  Widget _buildButton(CalculateScreenViewModel model) {
+  Widget buildButton(CalculateScreenViewModel model) {
     return Neumorphic(
       style: NeumorphicStyle(
         depth: 20,
@@ -125,7 +125,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
 
-  Widget _baseCurrencyTextField(CalculateScreenViewModel model) {
+  Widget baseCurrencyTextField(CalculateScreenViewModel model) {
     return Neumorphic(
       margin: EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 26),
       boxShape: NeumorphicBoxShape.stadium(),
@@ -169,7 +169,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
-  Expanded _quoteCurrencyList(CalculateScreenViewModel model) {
+  Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
      child: Neumorphic(
         padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
