@@ -32,7 +32,8 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
-
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:flutter/services.dart';
 import 'choose_favorites.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
