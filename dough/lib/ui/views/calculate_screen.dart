@@ -46,35 +46,31 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
   TextEditingController _controller;
   final baseColor = Color.fromRGBO(50, 50, 50, 0.3);
-  int initValue;
+  int initValue = 0;
   int endValue;
 
   int inBedValue;
   int outBedValue;
-  int days = 0;
-
+  int orderOfMagnitude = 0;
 
   @override
   void initState() {
     model.loadData();
     _controller = TextEditingController();
-    endValue = 20;
+    inBedValue = initValue;
+    outBedValue = endValue;
     super.initState();
   }
 
-
-    void _updateLabels(int init, int end, int laps) {
+  void _updateLabels(int init, int end, int laps) {
     setState(() {
-     var currencyAmount = end > init ? end - init : 100 - init + end;
-      days = laps;
-     model.calculateExchange('$currencyAmount');
+       inBedValue = init;
+    outBedValue = end;
+      var currencyAmount = end > init ? end - init : 100 - init + end;
+     orderOfMagnitude = laps;
+      model.calculateExchange('$currencyAmount');
     });
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +98,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             //crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-               //baseCurrencyTitle(model),
-             baseCurrencyCircularSlider(model),
+              //baseCurrencyTitle(model),
+              baseCurrencyCircularSlider(model),
               // baseCurrencyTextField(model),
-               quoteCurrencyList(model),
+              quoteCurrencyList(model),
             ],
           ),
         ),
@@ -127,15 +123,23 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
         handlerColor: Colors.black87,
         handlerOutterRadius: 12.0,
         onSelectionChange: _updateLabels,
+        onSelectionEnd: (a, b, c) => print('onSelectionEnd is $a, $b, $c'),
         showRoundedCapInSelection: true,
         showHandlerOutter: false,
         sliderStrokeWidth: 12.0,
         child: Padding(
-          padding: const EdgeInsets.all(22.0),
-          child: Center(
-            child: Text('${_formatIntervalValue(0, endValue)}',
-                style: TextStyle(fontSize: 36.0, color: Colors.black)),
-          ),
+          padding: const EdgeInsets.all(32.0),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SizedBox(height: 20),
+            Text(
+              '${model.baseCurrency.flag}',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              '${_formatIntervalValue(0,  endValue)}',
+              style: TextStyle(fontSize: 30),
+            ),
+          ]),
         ),
         shouldCountLaps: false,
       ),
@@ -144,8 +148,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   String _formatIntervalValue(int init, int end) {
     var currencyAmount = end > init ? end - init : 100 - init + end;
-     //model.calculateExchange('$currencyAmount');
-     return '$currencyAmount';
+    //model.calculateExchange('$currencyAmount');
+    return '$currencyAmount';
   }
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
@@ -206,7 +210,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           return Card(
             child: ListTile(
               leading: SizedBox(
-                width: 60,
+                width: 90,
                 child: Text(
                   '${model.quoteCurrencies[index].flag}',
                   style: TextStyle(fontSize: 30),
@@ -216,7 +220,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               subtitle: Text(model.quoteCurrencies[index].amount),
               onTap: () {
                 model.setNewBaseCurrency(index);
-                _controller.clear();
+                //_controller.clear();
               },
             ),
           );
