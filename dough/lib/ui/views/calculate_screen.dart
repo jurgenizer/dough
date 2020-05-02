@@ -34,6 +34,7 @@ import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 
 import 'choose_favorites.dart';
+import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -44,13 +45,36 @@ class CalculateCurrencyScreen extends StatefulWidget {
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
   TextEditingController _controller;
+  final baseColor = Color.fromRGBO(50, 50, 50, 0.3);
+  int initValue;
+  int endValue;
+
+  int inBedValue;
+  int outBedValue;
+  int days = 0;
+
 
   @override
   void initState() {
     model.loadData();
     _controller = TextEditingController();
+    endValue = 20;
     super.initState();
   }
+
+
+    void _updateLabels(int init, int end, int laps) {
+    setState(() {
+     var currencyAmount = end > init ? end - init : 100 - init + end;
+      days = laps;
+     model.calculateExchange('$currencyAmount');
+    });
+  }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +99,13 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             ],
           ),
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              baseCurrencyTitle(model),
-              baseCurrencyTextField(model),
-              quoteCurrencyList(model),
+               //baseCurrencyTitle(model),
+             baseCurrencyCircularSlider(model),
+              // baseCurrencyTextField(model),
+               quoteCurrencyList(model),
             ],
           ),
         ),
@@ -87,81 +113,115 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
+  Widget baseCurrencyCircularSlider(CalculateScreenViewModel model) {
+    return Container(
+      child: SingleCircularSlider(
+        100,
+        endValue,
+        height: 250.0,
+        width: 250.0,
+        primarySectors: 10,
+        secondarySectors: 100,
+        baseColor: Color.fromRGBO(50, 50, 50, 0.1),
+        selectionColor: baseColor,
+        handlerColor: Colors.black87,
+        handlerOutterRadius: 12.0,
+        onSelectionChange: _updateLabels,
+        showRoundedCapInSelection: true,
+        showHandlerOutter: false,
+        sliderStrokeWidth: 12.0,
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Center(
+            child: Text('${_formatIntervalValue(0, endValue)}',
+                style: TextStyle(fontSize: 36.0, color: Colors.black)),
+          ),
+        ),
+        shouldCountLaps: false,
+      ),
+    );
+  }
+
+  String _formatIntervalValue(int init, int end) {
+    var currencyAmount = end > init ? end - init : 100 - init + end;
+     //model.calculateExchange('$currencyAmount');
+     return '$currencyAmount';
+  }
+
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
-              padding: const EdgeInsets.only(
-                  left: 32, top: 32, right: 32, bottom: 5),
-              child: Text(
-                '${model.baseCurrency.longName}',
-                style: TextStyle(fontSize: 25),
-              ),
-            );
+      padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
+      child: Text(
+        '${model.baseCurrency.longName}',
+        style: TextStyle(fontSize: 25),
+      ),
+    );
   }
 
   Padding baseCurrencyTextField(CalculateScreenViewModel model) {
     return Padding(
-              padding: const EdgeInsets.only(left: 32, right: 32, bottom: 32),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: TextField(
-                  style: TextStyle(fontSize: 20),
-                  controller: _controller,
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: SizedBox(
-                        width: 60,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${model.baseCurrency.flag}',
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ),
-                      ),
-                    ),
-                    labelStyle: TextStyle(fontSize: 20),
-                    hintStyle: TextStyle(fontSize: 20),
-                    hintText: 'Amount to exchange',
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(20),
+      padding: const EdgeInsets.only(left: 32, right: 32, bottom: 32),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: TextField(
+          style: TextStyle(fontSize: 20),
+          controller: _controller,
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: SizedBox(
+                width: 90,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '${model.baseCurrency.flag}',
+                    style: TextStyle(fontSize: 30),
                   ),
-                  keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    model.calculateExchange(text);
-                  },
                 ),
               ),
-            );
+            ),
+            labelStyle: TextStyle(fontSize: 20),
+            hintStyle: TextStyle(fontSize: 20),
+            hintText: 'Amount to exchange',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(20),
+          ),
+          keyboardType: TextInputType.number,
+          onChanged: (text) {
+            model.calculateExchange(text);
+          },
+        ),
+      ),
+    );
   }
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
-              child: ListView.builder(
-                itemCount: model.quoteCurrencies.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: SizedBox(
-                        width: 60,
-                        child: Text(
-                          '${model.quoteCurrencies[index].flag}',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      title: Text(model.quoteCurrencies[index].longName),
-                      subtitle: Text(model.quoteCurrencies[index].amount),
-                      onTap: () {
-                        model.setNewBaseCurrency(index);
-                        _controller.clear();
-                      },
-                    ),
-                  );
-                },
+      child: ListView.builder(
+        itemCount: model.quoteCurrencies.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              leading: SizedBox(
+                width: 60,
+                child: Text(
+                  '${model.quoteCurrencies[index].flag}',
+                  style: TextStyle(fontSize: 30),
+                ),
               ),
-            );
+              title: Text(model.quoteCurrencies[index].longName),
+              subtitle: Text(model.quoteCurrencies[index].amount),
+              onTap: () {
+                model.setNewBaseCurrency(index);
+                _controller.clear();
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 }
