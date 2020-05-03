@@ -44,7 +44,7 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
-  
+
   final baseColor = Color.fromRGBO(50, 50, 50, 0.3);
   int initValue;
   int endValue = 0;
@@ -54,17 +54,24 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   @override
   void initState() {
-    model.loadData();  
+    model.loadData();
     endCurrencyValue = endValue;
     super.initState();
   }
 
   void _updateLabels(int init, int end, int laps) {
     setState(() {
-     
       endCurrencyValue = end;
       var currencyAmount = end > init ? end - init : 100 - init + end;
       orderOfMagnitude = laps;
+      model.calculateExchange('$currencyAmount');
+    });
+  }
+
+  void _refreshThing(String yo) {
+    setState(() {
+      var currencyAmount = yo;
+
       model.calculateExchange('$currencyAmount');
     });
   }
@@ -128,23 +135,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+            children: <Widget>[
               Text(
-              '${_formatIntervalValue(0, endCurrencyValue)}',
-            style: TextStyle(fontSize: 40),
+                '${_formatIntervalValue(0, endCurrencyValue)}',
+                style: TextStyle(fontSize: 40),
+              ),
+              SizedBox(width: 8),
+              Text(
+                '${model.baseCurrency.alphabeticCode}',
+                style: TextStyle(fontSize: 40),
+              ),
+            ],
           ),
-           SizedBox(width: 8),
-            Text(
-              '${model.baseCurrency.alphabeticCode}',
-              style: TextStyle(fontSize: 40),
-            ),
-          
-          ],
-        ),
-            
-            
-            
-        
         ),
         shouldCountLaps: false,
       ),
@@ -154,30 +156,29 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   String _formatIntervalValue(int init, int end) {
     var currencyAmount = end > init ? end - init : 100 - init + end;
     //model.calculateExchange('$currencyAmount');
+
     return '$currencyAmount';
   }
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
-        padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              '${model.baseCurrency.flag}',
-              style: TextStyle(fontSize: 30),
-            ),
-            SizedBox(width: 8),
-            Text(
-              '${model.baseCurrency.longName}',
-              style: TextStyle(fontSize: 25),
-            ),
-          ],
-        ),
-        );
+      padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            '${model.baseCurrency.flag}',
+            style: TextStyle(fontSize: 30),
+          ),
+          SizedBox(width: 8),
+          Text(
+            '${model.baseCurrency.longName}',
+            style: TextStyle(fontSize: 25),
+          ),
+        ],
+      ),
+    );
   }
-
- 
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
@@ -197,8 +198,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               subtitle: Text(model.quoteCurrencies[index].amount),
               onTap: () {
                 model.setNewBaseCurrency(index);
-              //_controller.clear();
-             
               },
             ),
           );
