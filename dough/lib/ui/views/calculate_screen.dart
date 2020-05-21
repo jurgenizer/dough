@@ -35,6 +35,24 @@ import 'package:provider/provider.dart';
 
 import 'choose_favorites.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
+class ExampleViewModel {
+  final List<Color> pageColors;
+  final CircularSliderAppearance appearance;
+  final double min;
+  final double max;
+  final double value;
+  final InnerWidget innerWidget;
+
+  ExampleViewModel(
+      {@required this.pageColors,
+      @required this.appearance,
+      this.min = 0,
+      this.max = 100,
+      this.value = 50,
+      this.innerWidget});
+}
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -68,13 +86,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     });
   }
 
-  void _refreshThing(String yo) {
-    setState(() {
-      var currencyAmount = yo;
 
-      model.calculateExchange('$currencyAmount');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +124,57 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
+
+/// Example 04
+
+CircularSliderAppearance appearance04 = CircularSliderAppearance(
+    customWidths:  CustomSliderWidths(trackWidth: 6, progressBarWidth: 18, handlerSize: 6, shadowWidth: 0),
+    customColors: CustomSliderColors(
+    trackColor:  Color(0xFFCCFF63),
+    progressBarColor: Color(0xFF00FF89),
+    
+   ),
+    infoProperties: InfoProperties(
+    bottomLabelStyle: TextStyle(
+        color: Color(0xFF6DA100), fontSize: 20, fontWeight: FontWeight.w400),
+    bottomLabelText: 'Temp.',
+    mainLabelStyle: TextStyle(
+        color: Color(0xFF54826D),
+        fontSize: 30.0,
+        fontWeight: FontWeight.w600),
+    modifier: (double value) {
+      final temp = value.toInt();
+      return '$temp ˚C';
+    }),
+    startAngle: 270,
+    angleRange: 360,
+    size: 200.0,
+    animationEnabled: true);
+
+
+Widget baseCurrencyCircularSlider(CalculateScreenViewModel model){
+  return Container(child: SleekCircularSlider(
+  min: 0,
+  max: 100,
+  initialValue: 12,
+  appearance: appearance04,
+  onChange: (double value) {
+    // callback providing a value while its being changed (with a pan gesture)
+  },
+  onChangeStart: (double startValue) {
+    // callback providing a starting value (when a pan gesture starts)
+  },
+  onChangeEnd: (double endValue) {
+    // ucallback providing an ending value (when a pan gesture ends)
+  },
+ 
+),
+);
+}
+
+
+
+/*
   Widget baseCurrencyCircularSlider(CalculateScreenViewModel model) {
     return Container(
       child: SingleCircularSlider(
@@ -153,6 +216,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
+*/
   String _formatIntervalValue(int init, int end) {
     var currencyAmount = end > init ? end - init : 100 - init + end;
     //model.calculateExchange('$currencyAmount');
