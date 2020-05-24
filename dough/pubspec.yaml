@@ -25,7 +25,6 @@ dependencies:
   shared_preferences: ^0.5.6+3
   get_it: ^4.0.1
   provider: ^4.0.5
-  flutter_circular_slider: ^2.5.0
   sleek_circular_slider: ^1.1.0
 
 

@@ -32,12 +32,11 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:math';
 import 'choose_favorites.dart';
-import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class ExampleViewModel {
+class CircularSliderViewModel {
   final List<Color> pageColors;
   final CircularSliderAppearance appearance;
   final double min;
@@ -45,7 +44,7 @@ class ExampleViewModel {
   final double value;
   final InnerWidget innerWidget;
 
-  ExampleViewModel(
+  CircularSliderViewModel(
       {@required this.pageColors,
       @required this.appearance,
       this.min = 0,
@@ -62,31 +61,34 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
+ MyObject _object;
+  int _currentValue = 0;
 
-  final baseColor = Color.fromRGBO(50, 50, 50, 0.3);
-  int initValue;
-  int endValue = 0;
-
-  int endCurrencyValue;
-  int orderOfMagnitude = 0;
-
-  @override
-  void initState() {
-    model.loadData();
-    endCurrencyValue = endValue;
-    super.initState();
-  }
-
-  void _updateLabels(int init, int end, int laps) {
+  void _generateNewCurrentValue() {
     setState(() {
-      endCurrencyValue = end;
-      var currencyAmount = end > init ? end - init : 100 - init + end;
-      orderOfMagnitude = laps;
-      model.calculateExchange('$currencyAmount');
+      
+     final randomizer = Random();
+   _currentValue = randomizer.nextInt(100);
+   
+      print('_currentValue = $_currentValue');
     });
   }
 
 
+
+  @override
+  void initState() {
+    model.loadData();
+    super.initState();
+  }
+
+  void _updateModel(double end) {
+    setState(() {
+      var currencyAmount = end > 0.0 ? end - 0.0 : 100.0 - 0.0 + end;
+      print('currencyAmount = $currencyAmount');
+      model.calculateExchange('$currencyAmount');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Dough'),
+            title: Text('Dough Currency Converter'),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.favorite),
@@ -115,7 +117,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               baseCurrencyTitle(model),
-              baseCurrencyCircularSlider(model),
+              baseCurrencyCircularSlider(),
               quoteCurrencyList(model),
             ],
           ),
@@ -124,109 +126,59 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
+// Sleek circular slider
 
-/// Example 04
-
-CircularSliderAppearance appearance04 = CircularSliderAppearance(
-    customWidths:  CustomSliderWidths(trackWidth: 6, progressBarWidth: 18, handlerSize: 6, shadowWidth: 0),
-    customColors: CustomSliderColors(
-    trackColor:  Color(0xFFCCFF63),
-    progressBarColor: Color(0xFF00FF89),
-    
-   ),
-    infoProperties: InfoProperties(
-    bottomLabelStyle: TextStyle(
-        color: Color(0xFF6DA100), fontSize: 20, fontWeight: FontWeight.w400),
-    bottomLabelText: 'Temp.',
-    mainLabelStyle: TextStyle(
-        color: Color(0xFF54826D),
-        fontSize: 30.0,
-        fontWeight: FontWeight.w600),
-    modifier: (double value) {
-      final temp = value.toInt();
-      return '$temp ˚C';
-    }),
-    startAngle: 270,
-    angleRange: 360,
-    size: 200.0,
-    animationEnabled: true);
-
-
-Widget baseCurrencyCircularSlider(CalculateScreenViewModel model){
-  return Container(child: SleekCircularSlider(
-  min: 0,
-  max: 100,
-  initialValue: 12,
-  appearance: appearance04,
-  onChange: (double value) {
-    // callback providing a value while its being changed (with a pan gesture)
-  },
-  onChangeStart: (double startValue) {
-    // callback providing a starting value (when a pan gesture starts)
-  },
-  onChangeEnd: (double endValue) {
-    // ucallback providing an ending value (when a pan gesture ends)
-  },
- 
-),
-);
-}
-
-
-
-/*
-  Widget baseCurrencyCircularSlider(CalculateScreenViewModel model) {
-    return Container(
-      child: SingleCircularSlider(
-        100,
-        endValue,
-        height: 250.0,
-        width: 250.0,
-        primarySectors: 10,
-        secondarySectors: 100,
-        baseColor: Color.fromRGBO(50, 50, 50, 0.1),
-        selectionColor: baseColor,
-        handlerColor: Colors.black87,
-        handlerOutterRadius: 14.0,
-        onSelectionChange: _updateLabels,
-        onSelectionEnd: (a, b, c) => print('onSelectionEnd is $a, $b, $c'),
-        showRoundedCapInSelection: true,
-        showHandlerOutter: false,
-        sliderStrokeWidth: 22.0,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '${_formatIntervalValue(0, endCurrencyValue)}',
-                style: TextStyle(fontSize: 40),
-              ),
-              SizedBox(width: 8),
-              Text(
-                '${model.baseCurrency.alphabeticCode}',
-                style: TextStyle(fontSize: 40),
-              ),
-            ],
+  CircularSliderAppearance sliderAppearance = CircularSliderAppearance(
+      customWidths: CustomSliderWidths(
+          trackWidth: 4, progressBarWidth: 17, handlerSize: 6, shadowWidth: 0),
+      customColors: CustomSliderColors(
+        trackColor: Colors.black,
+        progressBarColor: Colors.deepOrange,
+      ),
+      infoProperties: InfoProperties(
+          mainLabelStyle: TextStyle(
+            fontSize: 40.0,
           ),
-        ),
-        shouldCountLaps: false,
+          modifier: (double value) {
+            final baseMonetaryValue = value.toInt();
+            return '$baseMonetaryValue';
+          }),
+      startAngle: 270,
+      angleRange: 360,
+      size: 200.0,
+      animationEnabled: true);
+
+  Widget baseCurrencyCircularSlider() {
+    return Container(
+      child: SleekCircularSlider(
+        min: 0,
+        max: 100,
+        initialValue: _currentValue.toDouble(),
+        appearance: sliderAppearance,
+        onChange: (double value) {
+          // callback providing a value while its being changed (with a pan gesture)
+          print('onChange value = $value');
+          // _updateModel(value);
+        },
+        onChangeStart: (double startValue) {
+          // callback providing a starting value (when a pan gesture starts)
+          print('onChange startValue = $startValue');
+          //_updateModel(startValue);
+         
+        },
+        onChangeEnd: (double endValue) {
+          // callback providing an ending value (when a pan gesture ends)
+          print('onChangeEnd endValue = $endValue');
+          _updateModel(endValue);
+         
+        },
       ),
     );
   }
 
-*/
-  String _formatIntervalValue(int init, int end) {
-    var currencyAmount = end > init ? end - init : 100 - init + end;
-    //model.calculateExchange('$currencyAmount');
-
-    return '$currencyAmount';
-  }
-
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(left: 32, top: 32, right: 32, bottom: 5),
+      padding: const EdgeInsets.only(left: 32, top: 16, right: 32, bottom: 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -262,6 +214,8 @@ Widget baseCurrencyCircularSlider(CalculateScreenViewModel model){
               subtitle: Text(model.quoteCurrencies[index].amount),
               onTap: () {
                 model.setNewBaseCurrency(index);
+                
+                _generateNewCurrentValue();
               },
             ),
           );
