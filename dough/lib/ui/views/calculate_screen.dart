@@ -36,22 +36,10 @@ import 'dart:math';
 import 'choose_favorites.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class CircularSliderViewModel {
-  final List<Color> pageColors;
-  final CircularSliderAppearance appearance;
-  final double min;
-  final double max;
-  final double value;
-  final InnerWidget innerWidget;
+import 'package:dough/ui/widgets/circular_slider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-  CircularSliderViewModel(
-      {@required this.pageColors,
-      @required this.appearance,
-      this.min = 0,
-      this.max = 100,
-      this.value = 50,
-      this.innerWidget});
-}
+
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -61,7 +49,7 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
- MyObject _object;
+   final GlobalKey<CircularSliderState> _key = GlobalKey();
   int _currentValue = 0;
 
   void _generateNewCurrentValue() {
@@ -90,6 +78,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     });
   }
 
+  methodInParent() => Fluttertoast.showToast(msg: "Method called in parent", gravity: ToastGravity.CENTER);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CalculateScreenViewModel>(
@@ -117,64 +107,34 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               baseCurrencyTitle(model),
-              baseCurrencyCircularSlider(),
+            //  baseCurrencyCircularSlider(),
+          
+           
+            //      child: Text("Call method in child"),
+            //      onPressed: () => _key.currentState.methodInChild(), // calls method in child
+          
+            Expanded(
+              child: CircularSlider(
+                key: _key,
+                function: methodInParent,
+              ),
+            ),
+            
+
+
+
               quoteCurrencyList(model),
             ],
           ),
         ),
       ),
     );
+
+
+    
   }
 
-// Sleek circular slider
 
-  CircularSliderAppearance sliderAppearance = CircularSliderAppearance(
-      customWidths: CustomSliderWidths(
-          trackWidth: 4, progressBarWidth: 17, handlerSize: 6, shadowWidth: 0),
-      customColors: CustomSliderColors(
-        trackColor: Colors.black,
-        progressBarColor: Colors.deepOrange,
-      ),
-      infoProperties: InfoProperties(
-          mainLabelStyle: TextStyle(
-            fontSize: 40.0,
-          ),
-          modifier: (double value) {
-            final baseMonetaryValue = value.toInt();
-            return '$baseMonetaryValue';
-          }),
-      startAngle: 270,
-      angleRange: 360,
-      size: 200.0,
-      animationEnabled: true);
-
-  Widget baseCurrencyCircularSlider() {
-    return Container(
-      child: SleekCircularSlider(
-        min: 0,
-        max: 100,
-        initialValue: _currentValue.toDouble(),
-        appearance: sliderAppearance,
-        onChange: (double value) {
-          // callback providing a value while its being changed (with a pan gesture)
-          print('onChange value = $value');
-          // _updateModel(value);
-        },
-        onChangeStart: (double startValue) {
-          // callback providing a starting value (when a pan gesture starts)
-          print('onChange startValue = $startValue');
-          //_updateModel(startValue);
-         
-        },
-        onChangeEnd: (double endValue) {
-          // callback providing an ending value (when a pan gesture ends)
-          print('onChangeEnd endValue = $endValue');
-          _updateModel(endValue);
-         
-        },
-      ),
-    );
-  }
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
@@ -214,8 +174,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               subtitle: Text(model.quoteCurrencies[index].amount),
               onTap: () {
                 model.setNewBaseCurrency(index);
-                
-                _generateNewCurrentValue();
+               _key.currentState.methodInChild(); // calls method in child
+          
+                //_generateNewCurrentValue();
               },
             ),
           );
