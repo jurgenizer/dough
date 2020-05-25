@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import 'dart:math';
 
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -9,9 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 class CircularSlider extends StatefulWidget {
   final Function function;
 
-
-
-
   CircularSlider({Key key, this.function}) : super(key: key);
 
   @override
@@ -19,8 +15,10 @@ class CircularSlider extends StatefulWidget {
 }
 
 class CircularSliderState extends State<CircularSlider> {
+  int _currentValue = 0;
 
-final sliderAppearance = CircularSliderAppearance(
+
+  final sliderAppearance = CircularSliderAppearance(
       customWidths: CustomSliderWidths(
           trackWidth: 4, progressBarWidth: 17, handlerSize: 6, shadowWidth: 0),
       customColors: CustomSliderColors(
@@ -41,15 +39,14 @@ final sliderAppearance = CircularSliderAppearance(
       animationEnabled: true);
 
 
-  @override
-  Widget build(BuildContext context) {
+@override
+  Widget build(BuildContext context){
     return Container(
- 
       alignment: Alignment.center,
       child: SleekCircularSlider(
         min: 0,
         max: 100,
-        initialValue: 10,//_currentValue.toDouble(),
+        initialValue: _currentValue.toDouble(),
         appearance: sliderAppearance,
         onChange: (double value) {
           // callback providing a value while its being changed (with a pan gesture)
@@ -60,21 +57,29 @@ final sliderAppearance = CircularSliderAppearance(
           // callback providing a starting value (when a pan gesture starts)
           print('onChange startValue = $startValue');
           //_updateModel(startValue);
-         
         },
         onChangeEnd: (double endValue) {
           // callback providing an ending value (when a pan gesture ends)
           print('onChangeEnd endValue = $endValue');
           //_updateModel(endValue);
-        widget.function();// calls method in parent
-         
+          widget.function(endValue); // calls method in parent
         },
       ),
     );
   }
 
-  methodInChild() => Fluttertoast.showToast(msg: "Method called in child");
+  //methodInChild() => Fluttertoast.showToast(msg: "Method called in child");
+
+
+  void methodInChild() {
+    //setState(() {
+      //final randomizer = Random();
+    //  _currentValue = randomizer.nextInt(100);
+_currentValue = 7;
+      print('_currentValue = $_currentValue');
+  ///  });
+  }
+
+
+
 }
-
-
-  

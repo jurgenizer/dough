@@ -34,12 +34,9 @@ import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 import 'choose_favorites.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'package:dough/ui/widgets/circular_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -49,28 +46,19 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
-   final GlobalKey<CircularSliderState> _key = GlobalKey();
+  final GlobalKey<CircularSliderState> _key = GlobalKey();
   int _currentValue = 0;
 
   void _generateNewCurrentValue() {
     setState(() {
-      
-     final randomizer = Random();
-   _currentValue = randomizer.nextInt(100);
-   
+      final randomizer = Random();
+      _currentValue = randomizer.nextInt(100);
+
       print('_currentValue = $_currentValue');
     });
   }
 
-
-
-  @override
-  void initState() {
-    model.loadData();
-    super.initState();
-  }
-
-  void _updateModel(double end) {
+    void methodInParent(double end) {
     setState(() {
       var currencyAmount = end > 0.0 ? end - 0.0 : 100.0 - 0.0 + end;
       print('currencyAmount = $currencyAmount');
@@ -78,7 +66,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     });
   }
 
-  methodInParent() => Fluttertoast.showToast(msg: "Method called in parent", gravity: ToastGravity.CENTER);
+  @override
+  void initState() {
+    model.loadData();
+    super.initState();
+  }
+
+
+/*
+  methodInParent() => Fluttertoast.showToast(
+      msg: "Method called in parent", gravity: ToastGravity.CENTER);
+*/
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,21 +106,17 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               baseCurrencyTitle(model),
-            //  baseCurrencyCircularSlider(),
-          
-           
-            //      child: Text("Call method in child"),
-            //      onPressed: () => _key.currentState.methodInChild(), // calls method in child
-          
-            Expanded(
-              child: CircularSlider(
-                key: _key,
-                function: methodInParent,
+              //  baseCurrencyCircularSlider(),
+
+              //      child: Text("Call method in child"),
+              //      onPressed: () => _key.currentState.methodInChild(), // calls method in child
+
+              Expanded(
+                child: CircularSlider(
+                  key: _key,
+                  function: methodInParent,
+                ),
               ),
-            ),
-            
-
-
 
               quoteCurrencyList(model),
             ],
@@ -129,12 +124,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
         ),
       ),
     );
-
-
-    
   }
-
-
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
@@ -174,8 +164,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               subtitle: Text(model.quoteCurrencies[index].amount),
               onTap: () {
                 model.setNewBaseCurrency(index);
-               _key.currentState.methodInChild(); // calls method in child
-          
+                _key.currentState.methodInChild(); // calls method in child
+
                 //_generateNewCurrentValue();
               },
             ),
