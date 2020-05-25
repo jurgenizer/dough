@@ -31,6 +31,8 @@
 import 'package:flutter/material.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:dough/ui/styles.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
   // call setupServiceLocator() first so entire app has access before building UI
@@ -41,13 +43,34 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+   return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Dough',
+      title: 'Dough Currency Converter',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        brightness: Brightness.light,
+        primarySwatch: Styles.neumorphicAccentColor,
+        accentColor: Styles.neumorphicVariantColor,
+        buttonColor: Styles.neumorphicAccentColor,
+         scaffoldBackgroundColor: Styles.scaffoldBackground,
       ),
-      home: CalculateCurrencyScreen(),
+      home: NeumorphicTheme(
+        usedTheme: UsedTheme.LIGHT,
+        theme: NeumorphicThemeData(
+            defaultTextColor: Styles.neumorphicDefaultTextColor,
+            accentColor: Styles.neumorphicAccentColor,
+            variantColor: Styles.neumorphicVariantColor,
+            baseColor: Styles.neumorphicBaseColor,
+            depth: 4.0,
+            intensity: 0.5,
+            lightSource: LightSource.topLeft),
+        child: NeumorphicBackground(child: CalculateCurrencyScreen()),
+      ),
     );
+
+
+
+
+
+
   }
 }

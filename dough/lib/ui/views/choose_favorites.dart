@@ -32,6 +32,8 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/choose_favorites_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
+import 'package:dough/ui/styles.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class ChooseFavoriteCurrencyScreen extends StatefulWidget {
   @override
@@ -54,11 +56,18 @@ class _ChooseFavoriteCurrencyScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NeumorphicTheme(
+      theme: NeumorphicThemeData(depth: 2),
+      child:  Scaffold(
       appBar: AppBar(
         title: Text('Choose Currencies'),
       ),
-      body: buildListView(model),
+      body: Padding(
+      padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
+      child:     
+      buildListView(model),
+      ),
+      ),
     );
   }
 
@@ -69,10 +78,24 @@ class _ChooseFavoriteCurrencyScreenState
       create: (context) => viewModel,
       // Consumer rebuilds the widget tree below it when there are changes
       child: Consumer<ChooseFavoritesViewModel>(
-        builder: (context, model, child) => ListView.builder(
+        builder: (context, model, child) => Neumorphic(
+        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+        style: NeumorphicStyle(
+          depth: -11,
+          intensity: 0.5,
+          color: Styles.neumorphicBaseColor,
+        ),
+        boxShape: NeumorphicBoxShape.roundRect(
+          BorderRadius.circular(14),
+        ),
+        child:
+         ListView.builder(
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
+               color: Colors.blueGrey[50],
+              elevation: 5,
+              borderOnForeground: false,
               child: ListTile(
                 leading: SizedBox(
                   width: 60,
@@ -85,7 +108,7 @@ class _ChooseFavoriteCurrencyScreenState
                 title: Text('${model.choices[index].alphabeticCode}'),
                 subtitle: Text('${model.choices[index].longName}'),
                 trailing: (model.choices[index].isFavorite)
-                    ? Icon(Icons.favorite, color: Colors.red)
+                    ? Icon(Icons.favorite, color: Styles.neumorphicAccentColor)
                     : Icon(Icons.favorite_border),
                 onTap: () {
                   // Call method in model directly
@@ -95,6 +118,8 @@ class _ChooseFavoriteCurrencyScreenState
             );
           },
         ),
+      ),
+      
       ),
     );
   }

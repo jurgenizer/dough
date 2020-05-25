@@ -26,10 +26,7 @@ dependencies:
   get_it: ^4.0.1
   provider: ^4.0.5
   sleek_circular_slider: ^1.1.0
-  fluttertoast: ^4.0.0
-  eventify: ^0.1.4
-
-
+  flutter_neumorphic: ^2.1.0+1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

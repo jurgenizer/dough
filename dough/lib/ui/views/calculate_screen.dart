@@ -32,9 +32,9 @@ import 'package:flutter/material.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 import 'choose_favorites.dart';
-
+import 'package:dough/ui/styles.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:dough/ui/widgets/circular_slider.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
@@ -83,7 +83,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               )
             ],
           ),
-          body: Column(
+          body: Padding(
+      padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
+      child: Column(
             //crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -98,6 +100,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               quoteCurrencyList(model),
             ],
           ),
+        ),
         ),
       ),
     );
@@ -125,27 +128,41 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: model.quoteCurrencies.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              leading: SizedBox(
-                width: 80,
-                child: Text(
-                  '${model.quoteCurrencies[index].alphabeticCode}',
-                  style: TextStyle(fontSize: 30),
+      child: Neumorphic(
+        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+        style: NeumorphicStyle(
+          depth: -11,
+          intensity: 0.5,
+          color: Styles.neumorphicBaseColor,
+        ),
+        boxShape: NeumorphicBoxShape.roundRect(
+          BorderRadius.circular(12),
+        ),
+        child: ListView.builder(
+          itemCount: model.quoteCurrencies.length,
+          itemBuilder: (context, index) {
+            return Card(
+              color: Colors.blueGrey[50],
+              elevation: 5,
+              borderOnForeground: false,
+              child: ListTile(
+                leading: SizedBox(
+                  width: 80,
+                  child: Text(
+                    '${model.quoteCurrencies[index].alphabeticCode}',
+                    style: TextStyle(fontSize: 30),
+                  ),
                 ),
+                title: Text(model.quoteCurrencies[index].longName),
+                subtitle: Text(model.quoteCurrencies[index].amount),
+                onTap: () {
+                  model.setNewBaseCurrency(index);
+                  _key.currentState.methodInChild(); // calls method in child
+                },
               ),
-              title: Text(model.quoteCurrencies[index].longName),
-              subtitle: Text(model.quoteCurrencies[index].amount),
-              onTap: () {
-                model.setNewBaseCurrency(index);
-                _key.currentState.methodInChild(); // calls method in child
-              },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
