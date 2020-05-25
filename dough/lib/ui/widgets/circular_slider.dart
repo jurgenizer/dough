@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'dart:math';
-
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class CircularSlider extends StatefulWidget {
   final Function function;
@@ -15,8 +12,7 @@ class CircularSlider extends StatefulWidget {
 }
 
 class CircularSliderState extends State<CircularSlider> {
-  int _currentValue = 0;
-
+  double _currentValue = 0.1;
 
   final sliderAppearance = CircularSliderAppearance(
       customWidths: CustomSliderWidths(
@@ -38,9 +34,8 @@ class CircularSliderState extends State<CircularSlider> {
       size: 200.0,
       animationEnabled: true);
 
-
-@override
-  Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: SleekCircularSlider(
@@ -68,18 +63,16 @@ class CircularSliderState extends State<CircularSlider> {
     );
   }
 
-  //methodInChild() => Fluttertoast.showToast(msg: "Method called in child");
-
-
   void methodInChild() {
-    //setState(() {
-      //final randomizer = Random();
-    //  _currentValue = randomizer.nextInt(100);
-_currentValue = 7;
-      print('_currentValue = $_currentValue');
-  ///  });
+    //  setState(() {
+    final randomizer = Random();
+    _currentValue = randomizer.nextDouble();
+    print('_currentValue from randomizer = $_currentValue');
+    if (_currentValue > 0.5) {
+      _currentValue = _currentValue - 0.5;
+    }
+    print('final _currentValue  = $_currentValue');
+
+    // });
   }
-
-
-
 }

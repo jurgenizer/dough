@@ -36,7 +36,6 @@ import 'dart:math';
 import 'choose_favorites.dart';
 
 import 'package:dough/ui/widgets/circular_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -47,18 +46,8 @@ class CalculateCurrencyScreen extends StatefulWidget {
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
   final GlobalKey<CircularSliderState> _key = GlobalKey();
-  int _currentValue = 0;
 
-  void _generateNewCurrentValue() {
-    setState(() {
-      final randomizer = Random();
-      _currentValue = randomizer.nextInt(100);
-
-      print('_currentValue = $_currentValue');
-    });
-  }
-
-    void methodInParent(double end) {
+  void methodInParent(double end) {
     setState(() {
       var currencyAmount = end > 0.0 ? end - 0.0 : 100.0 - 0.0 + end;
       print('currencyAmount = $currencyAmount');
@@ -71,13 +60,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     model.loadData();
     super.initState();
   }
-
-
-/*
-  methodInParent() => Fluttertoast.showToast(
-      msg: "Method called in parent", gravity: ToastGravity.CENTER);
-*/
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,18 +88,13 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               baseCurrencyTitle(model),
-              //  baseCurrencyCircularSlider(),
-
-              //      child: Text("Call method in child"),
-              //      onPressed: () => _key.currentState.methodInChild(), // calls method in child
-
+              //Circular Slider in the widgets folder
               Expanded(
                 child: CircularSlider(
                   key: _key,
                   function: methodInParent,
                 ),
               ),
-
               quoteCurrencyList(model),
             ],
           ),
@@ -165,8 +142,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               onTap: () {
                 model.setNewBaseCurrency(index);
                 _key.currentState.methodInChild(); // calls method in child
-
-                //_generateNewCurrentValue();
               },
             ),
           );
