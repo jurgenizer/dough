@@ -29,6 +29,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
 import 'package:dough/services/service_locator.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
 import 'package:dough/ui/styles.dart';
@@ -37,21 +38,26 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 void main() {
   // call setupServiceLocator() first so entire app has access before building UI
   setupServiceLocator();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dough Currency Converter',
       theme: ThemeData(
+        fontFamily: 'Monserrat',
         brightness: Brightness.light,
-        primarySwatch: Styles.neumorphicAccentColor,
+        primarySwatch: Styles.materialPrimarySwatchColor,
         accentColor: Styles.neumorphicVariantColor,
-        buttonColor: Styles.neumorphicAccentColor,
-         scaffoldBackgroundColor: Styles.scaffoldBackground,
+        buttonColor: Styles.neumorphicVariantColor,
+        scaffoldBackgroundColor: Styles.scaffoldBackground,
       ),
       home: NeumorphicTheme(
         usedTheme: UsedTheme.LIGHT,
@@ -66,11 +72,5 @@ class MyApp extends StatelessWidget {
         child: NeumorphicBackground(child: CalculateCurrencyScreen()),
       ),
     );
-
-
-
-
-
-
   }
 }

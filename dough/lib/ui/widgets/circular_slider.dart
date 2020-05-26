@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:dough/ui/styles.dart';
 
 class CircularSlider extends StatefulWidget {
   final Function function;
@@ -20,7 +21,7 @@ class CircularSliderState extends State<CircularSlider> {
           trackWidth: 3, progressBarWidth: 17, handlerSize: 6, shadowWidth: 0),
       customColors: CustomSliderColors(
         trackColor: Colors.black,
-        progressBarColor: Colors.brown,
+        progressBarColor: Styles.materialSecondaryColor,
         ),
       infoProperties: InfoProperties(
           mainLabelStyle: TextStyle(
