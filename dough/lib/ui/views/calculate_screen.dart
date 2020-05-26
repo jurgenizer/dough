@@ -71,7 +71,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             title: Text('Dough Currency Converter'),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.favorite),
+                icon: Icon(Icons.check),
                 onPressed: () async {
                   await Navigator.push(
                     context,
@@ -84,19 +84,25 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             ],
           ),
           body: Padding(
-      padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
+      padding: const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
       child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               baseCurrencyTitle(model),
               //Circular Slider in the widgets folder
-              Expanded(
+               ConstrainedBox(
+         constraints: new BoxConstraints(
+    minHeight: 140.0,
+    maxHeight: 300.0,
+  ),
+  child:Expanded(
                 child: CircularSlider(
                   key: _key,
                   function: methodInParent,
                 ),
               ),
+               ),
               quoteCurrencyList(model),
             ],
           ),
@@ -108,18 +114,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   Padding baseCurrencyTitle(CalculateScreenViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(left: 32, top: 16, right: 32, bottom: 2),
+      padding: const EdgeInsets.only(left: 32, top: 4, right: 32, bottom: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(
             '${model.baseCurrency.flag}',
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 28),
           ),
           SizedBox(width: 8),
           Text(
             '${model.baseCurrency.longName}',
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 24),
           ),
         ],
       ),
@@ -131,8 +137,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Neumorphic(
         padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
         style: NeumorphicStyle(
-          depth: -11,
-          intensity: 0.5,
+          depth: -10,
+          intensity: 0.6,
           color: Styles.neumorphicBaseColor,
         ),
         boxShape: NeumorphicBoxShape.roundRect(

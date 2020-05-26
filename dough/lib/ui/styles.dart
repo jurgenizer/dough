@@ -22,9 +22,9 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
   );
 
-  static const neumorphicAccentColor = Colors.deepOrange;
+  static const neumorphicAccentColor = Colors.lime;
   static const neumorphicBaseColor = Color(0xFFF8F9FC);
-  static const neumorphicVariantColor = Colors.deepOrangeAccent;
+  static const neumorphicVariantColor = Color(0xFFBCAAA4);
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
   static const neumorphicGreyColor = Color(0xFF4d4d4d);
   static const neumorphicLightGreyColor = Color(0xFFD6D6D6);

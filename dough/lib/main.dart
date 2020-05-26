@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             variantColor: Styles.neumorphicVariantColor,
             baseColor: Styles.neumorphicBaseColor,
             depth: 4.0,
-            intensity: 0.5,
+            intensity: 0.6,
             lightSource: LightSource.topLeft),
         child: NeumorphicBackground(child: CalculateCurrencyScreen()),
       ),

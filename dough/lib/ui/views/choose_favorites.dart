@@ -57,7 +57,8 @@ class _ChooseFavoriteCurrencyScreenState
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(depth: 2),
+      theme: NeumorphicThemeData(depth: 4,
+      intensity: 0.6),
       child:  Scaffold(
       appBar: AppBar(
         title: Text('Choose Currencies'),
@@ -82,11 +83,11 @@ class _ChooseFavoriteCurrencyScreenState
         padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
         style: NeumorphicStyle(
           depth: -11,
-          intensity: 0.5,
+          intensity: 0.6,
           color: Styles.neumorphicBaseColor,
         ),
         boxShape: NeumorphicBoxShape.roundRect(
-          BorderRadius.circular(14),
+          BorderRadius.circular(12),
         ),
         child:
          ListView.builder(
