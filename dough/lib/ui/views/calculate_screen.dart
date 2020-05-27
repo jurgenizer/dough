@@ -69,11 +69,11 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text('dough currency converter'),
-            //backgroundColor: Styles.scaffoldBackground,
+           
             elevation: 0.0,
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.check),
+                icon: Icon(Icons.favorite_border),
                 onPressed: () async {
                   await Navigator.push(
                     context,
@@ -95,7 +95,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               //Circular Slider in the widgets folder
                ConstrainedBox(
          constraints: new BoxConstraints(
-    minHeight: 140.0,
+    minHeight: 160.0,
     maxHeight: 200.0,
   ),
   child:Expanded(
@@ -150,7 +150,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           itemCount: model.quoteCurrencies.length,
           itemBuilder: (context, index) {
             return Card(
-              color: Colors.greenAccent,
+              color: Colors.orange[200],
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(

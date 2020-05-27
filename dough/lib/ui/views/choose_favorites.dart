@@ -47,6 +47,7 @@ class _ChooseFavoriteCurrencyScreenState
 
   ChooseFavoritesViewModel model = serviceLocator<ChooseFavoritesViewModel>();
 
+  bool checkMark = false;
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class _ChooseFavoriteCurrencyScreenState
       intensity: 0.6),
       child:  Scaffold(
       appBar: AppBar(
-        title: Text('Choose Currencies'),
+        title: Text('choose currencies'),
       ),
       body: Padding(
       padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
@@ -94,7 +95,7 @@ class _ChooseFavoriteCurrencyScreenState
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
-               color: Colors.greenAccent,
+               color: Colors.orange[200],
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(
@@ -108,12 +109,17 @@ class _ChooseFavoriteCurrencyScreenState
                 // using the data in model, build the UI
                 title: Text('${model.choices[index].alphabeticCode}'),
                 subtitle: Text('${model.choices[index].longName}'),
+                
                 trailing: (model.choices[index].isFavorite)
                     ? Icon(Icons.favorite, color: Styles.neumorphicAccentColor)
                     : Icon(Icons.favorite_border),
                 onTap: () {
                   // Call method in model directly
                   model.toggleFavoriteStatus(index);
+              
+            
+
+
                 },
               ),
             );
