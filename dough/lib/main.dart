@@ -50,7 +50,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Dough Currency Converter',
       theme: ThemeData(
         fontFamily: 'Monserrat',
         brightness: Brightness.light,

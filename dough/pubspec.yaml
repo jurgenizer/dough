@@ -70,11 +70,11 @@ flutter:
   fonts:
     - family: Monserrat
       fonts:
-        - asset: fonts/Monserrat-Regular.ttf
+        - asset: assets/fonts/Monserrat-Regular.ttf
           weight: 400
-        - asset: fonts/Monserrat-Medium.ttf
+        - asset: assets/fonts/Monserrat-Medium.ttf
           weight: 500
-        - asset: fonts/Monserrat-SemiBold.ttf
+        - asset: assets/fonts/Monserrat-SemiBold.ttf
           weight: 600
-        - asset: fonts/Monserrat-Bold.ttf
+        - asset: assets/fonts/Monserrat-Bold.ttf
           weight: 700

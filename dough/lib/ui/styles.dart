@@ -3,11 +3,23 @@ import 'package:flutter/widgets.dart';
 
 abstract class Styles {
   static const baseCurrencyTitleText = TextStyle(
-    color: Color(0xFF4d4d4d),
+    color: Color.fromRGBO(0, 0, 0, 0.9),
     fontFamily: 'Monserrat',
-    fontSize: 25,
+    fontSize: 24,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
+  );
+
+  static const quoteCurrencyAlphabeticCode = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'Monserrat',
+    fontSize: 30,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const quoteCurrencyTitleSubtitle = TextStyle(
+    fontFamily: 'Monserrat',
   );
 
   static const minorText = TextStyle(

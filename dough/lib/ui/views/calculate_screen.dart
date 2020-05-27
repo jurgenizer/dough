@@ -68,7 +68,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Dough Currency Converter'),
+            title: Text('dough currency converter'),
+            //backgroundColor: Styles.scaffoldBackground,
+            elevation: 0.0,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.check),
@@ -94,7 +96,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                ConstrainedBox(
          constraints: new BoxConstraints(
     minHeight: 140.0,
-    maxHeight: 300.0,
+    maxHeight: 200.0,
   ),
   child:Expanded(
                 child: CircularSlider(
@@ -125,7 +127,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           SizedBox(width: 8),
           Text(
             '${model.baseCurrency.longName}',
-            style: TextStyle(fontSize: 24),
+            style: Styles.baseCurrencyTitleText,
           ),
         ],
       ),
@@ -148,7 +150,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           itemCount: model.quoteCurrencies.length,
           itemBuilder: (context, index) {
             return Card(
-              color: Colors.blueGrey[50],
+              color: Colors.greenAccent,
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(
@@ -156,7 +158,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   width: 80,
                   child: Text(
                     '${model.quoteCurrencies[index].alphabeticCode}',
-                    style: TextStyle(fontSize: 30),
+                    style: Styles.quoteCurrencyAlphabeticCode,
                   ),
                 ),
                 title: Text(model.quoteCurrencies[index].longName),
