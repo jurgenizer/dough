@@ -27,7 +27,7 @@ abstract class Styles {
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
   static const materialSecondaryColor = Color(0xFFFD5523);
-  static const neumorphicAccentColor = Colors.green;
+  static const neumorphicAccentColor = Colors.lime;
   static const neumorphicBaseColor = Colors.blueGrey;
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
   static const neumorphicGreyColor = Color(0xFF4d4d4d);

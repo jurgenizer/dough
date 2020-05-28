@@ -158,15 +158,15 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             showRoundedCapInSelection: true,
             showHandlerOutter: false,
             child: Padding(
-                padding: const EdgeInsets.all(22.0),
+                padding: const EdgeInsets.all(18.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 20),
                     Text('${_formatIntervalTime(inBedTime, outBedTime)}',
                         style: TextStyle(fontSize: 36.0, color: Colors.white)),
-                    Text('${model.baseCurrency.longName}',
-                        style: TextStyle(fontSize: 30.0, color: Colors.white)),
+                    Text('${model.baseCurrency.alphabeticCode}',
+                        style: TextStyle(fontSize: 24.0, color: Colors.white)),
                   ],
                 )),
             shouldCountLaps: true,

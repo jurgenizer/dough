@@ -63,6 +63,7 @@ class _ChooseFavoriteCurrencyScreenState
       child:  Scaffold(
       appBar: AppBar(
         title: Text('choose currencies'),
+        elevation: 0.0,
       ),
       body: Padding(
       padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
@@ -95,7 +96,7 @@ class _ChooseFavoriteCurrencyScreenState
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
-               color: Colors.blueGrey[300],
+               color: Colors.blueGrey[400],
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(
