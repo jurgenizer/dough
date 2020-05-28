@@ -29,13 +29,14 @@
  */
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
 import 'package:dough/ui/styles.dart';
+import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:dough/ui/widgets/circular_slider.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -45,20 +46,50 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
-  final GlobalKey<CircularSliderState> _key = GlobalKey();
 
-  void methodInParent(double end) {
+  ValueKey<DateTime> forceRebuild;
+
+  int initCurrencyValue;
+  int endCurrencyValue;
+
+  int inBedTime;
+  int outBedTime;
+  int days = 0;
+
+/*   void methodInParent(double end) {
     setState(() {
       var currencyAmount = end > 0.0 ? end - 0.0 : 100.0 - 0.0 + end;
       print('currencyAmount = $currencyAmount');
       model.calculateExchange('$currencyAmount');
     });
-  }
+  } */
 
   @override
   void initState() {
     model.loadData();
+    _shuffle();
     super.initState();
+  }
+
+  void _shuffle() {
+    setState(() {
+      initCurrencyValue = 0; //_generateRandomTime();
+      endCurrencyValue = _generateRandomTime();
+      inBedTime = initCurrencyValue;
+      outBedTime = endCurrencyValue;
+      forceRebuild = ValueKey(DateTime.now());
+    });
+  }
+
+  void _updateLabels(int init, int end, int laps) {
+    String currencyValueToConvert = end.toString();
+    model.calculateExchange(currencyValueToConvert);
+    print('The currencyValueToConvert string is $currencyValueToConvert');
+    setState(() {
+      inBedTime = init;
+      outBedTime = end;
+      days = laps;
+    });
   }
 
   @override
@@ -91,14 +122,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                //baseCurrencyTitle(model),
-                //Circular Slider in the widgets folder
-                CircularSlider(
-                  key: _key,
-                  function: methodInParent,
-                ),
-
-                //quoteCurrencyList(model),
+                circularSlider(context),
+                quoteCurrencyList(model),
               ],
             ),
           ),
@@ -107,24 +132,66 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
-  Padding baseCurrencyTitle(CalculateScreenViewModel model) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 32, top: 4, right: 32, bottom: 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            '${model.baseCurrency.flag}',
-            style: TextStyle(fontSize: 28),
+  Widget circularSlider(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          'How much to convert?',
+          style: TextStyle(color: Colors.white),
+        ),
+        SizedBox(height: 8),
+        Container(
+          key: forceRebuild,
+          child: SingleCircularSlider(
+            100,
+            endCurrencyValue,
+            height: 210.0,
+            width: 210.0,
+            primarySectors: 10,
+            secondarySectors: 100,
+            baseColor: Styles.sliderBaseColor,
+            selectionColor: Styles.sliderSelectionColor,
+            handlerColor: Colors.white,
+            handlerOutterRadius: 12.0,
+            onSelectionChange: _updateLabels,
+            showRoundedCapInSelection: true,
+            showHandlerOutter: false,
+            child: Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 20),
+                    Text('${_formatIntervalTime(inBedTime, outBedTime)}',
+                        style: TextStyle(fontSize: 36.0, color: Colors.white)),
+                    Text('${model.baseCurrency.longName}',
+                        style: TextStyle(fontSize: 30.0, color: Colors.white)),
+                  ],
+                )),
+            shouldCountLaps: true,
           ),
-          SizedBox(width: 8),
-          Text(
-            '${model.baseCurrency.longName}',
-            style: Styles.baseCurrencyTitleText,
+        ),
+        FlatButton(
+          child: Text('S H U F F L E'),
+          color: Styles.sliderSelectionColor,
+          textColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
           ),
-        ],
-      ),
+          onPressed: _shuffle,
+        ),
+      ],
     );
+  }
+
+  int _generateRandomTime() => Random().nextInt(100);
+
+  String _formatIntervalTime(int init, int end) {
+    var currencyValue = end > init ? end - init : 100 - init + end;
+    //  var hours = sleepTime ~/ 12;
+    //   var minutes = (sleepTime % 12) * 5;
+    return '$currencyValue';
   }
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
@@ -143,7 +210,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           itemCount: model.quoteCurrencies.length,
           itemBuilder: (context, index) {
             return Card(
-              color: Colors.orange[200],
+              color: Colors.blueGrey[300],
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(
@@ -158,7 +225,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 subtitle: Text(model.quoteCurrencies[index].amount),
                 onTap: () {
                   model.setNewBaseCurrency(index);
-                  _key.currentState.methodInChild(); // calls method in child
+                  _shuffle();
                 },
               ),
             );

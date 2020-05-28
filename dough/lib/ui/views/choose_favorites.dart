@@ -95,7 +95,7 @@ class _ChooseFavoriteCurrencyScreenState
           itemCount: model.choices.length,
           itemBuilder: (context, index) {
             return Card(
-               color: Colors.orange[200],
+               color: Colors.blueGrey[300],
               elevation: 5,
               borderOnForeground: false,
               child: ListTile(

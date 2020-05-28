@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 abstract class Styles {
   static const baseCurrencyTitleText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-   // fontFamily: 'Monserrat',
     fontSize: 24,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
@@ -12,22 +11,20 @@ abstract class Styles {
 
   static const quoteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-  //  fontFamily: 'Monserrat',
     fontSize: 30,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
-
-
   static const minorText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-   // fontFamily: 'Monserrat',
     fontSize: 16,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
+  static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
+  static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
   static const materialSecondaryColor = Color(0xFFFD5523);
   static const neumorphicAccentColor = Colors.green;
