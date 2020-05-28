@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:dough/ui/styles.dart';
 
@@ -14,91 +15,174 @@ class CircularSlider extends StatefulWidget {
 }
 
 class CircularSliderState extends State<CircularSlider> {
-  double _currentValue = 0.1;
+  
+  ValueKey<DateTime> forceRebuild;
+  final baseColor = Color.fromRGBO(255, 255, 255, 0.3);
 
-  final sliderAppearance = CircularSliderAppearance(
-      customWidths: CustomSliderWidths(
-          trackWidth: 3, progressBarWidth: 17, handlerSize: 6, shadowWidth: 0),
-      customColors: CustomSliderColors(
-        trackColor: Colors.black,
-        progressBarColor: Styles.materialSecondaryColor,
-        ),
-      infoProperties: InfoProperties(
-          mainLabelStyle: TextStyle(
-            fontSize: 40.0,
-          ),
-          modifier: (double value) {
-            final baseMonetaryValue = value.toInt();
-            return '$baseMonetaryValue';
-          }),
-      startAngle: 270,
-      angleRange: 360,
-      size: 190.0,
-      animationEnabled: true);
+  int initTime;
+  int endTime;
+
+  int inBedTime;
+  int outBedTime;
+  int days = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffle();
+  }
+
+  void _shuffle() {
+    setState(() {
+     
+      
+      initTime = 0; //_generateRandomTime();
+      endTime = _generateRandomTime();
+      inBedTime = initTime;
+      outBedTime = endTime;
+      forceRebuild = ValueKey(DateTime.now());
+    });
+  }
+
+  void _updateLabels(int init, int end, int laps) {
+    setState(() {
+      inBedTime = init;
+      outBedTime = end;
+      days = laps;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Neumorphic(
-        margin: EdgeInsets.all(8),
-        boxShape: NeumorphicBoxShape.circle(),
-        child: Neumorphic(
-          style: NeumorphicStyle(depth: 14),
-          margin: EdgeInsets.all(10),
-          boxShape: NeumorphicBoxShape.circle(),
-          child: Neumorphic(
-            style: NeumorphicStyle(depth: -8),
-            margin: EdgeInsets.all(10),
-            boxShape: NeumorphicBoxShape.circle(),
-            child: Stack(
-              fit: StackFit.expand,
-              alignment: Alignment.center,
-              children: [
-                Padding(padding: const EdgeInsets.all(8.0),
-                child:
-                SleekCircularSlider(
-                  min: 0,
-                  max: 100,
-                  initialValue: _currentValue.toDouble(),
-                  appearance: sliderAppearance,
-                  onChange: (double value) {
-                    // callback providing a value while its being changed (with a pan gesture)
-                    print('onChange value = $value');
-                    // _updateModel(value);
-                  },
-                  onChangeStart: (double startValue) {
-                    // callback providing a starting value (when a pan gesture starts)
-                    print('onChange startValue = $startValue');
-                    //_updateModel(startValue);
-                  },
-                  onChangeEnd: (double endValue) {
-                    // callback providing an ending value (when a pan gesture ends)
-                    print('onChangeEnd endValue = $endValue');
-                    //_updateModel(endValue);
-                    widget.function(endValue); // calls method in parent
-                  },
-                ),
-                ),
-              ],
-            ),
+      return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          'How long did you stay in bed?',
+          style: TextStyle(color: Colors.white),
+        ),
+        // SingleCircularSlider(
+        //   288,
+        //   endTime,
+        //   height: 220.0,
+        //   width: 220.0,
+        //   primarySectors: 6,
+        //   secondarySectors: 24,
+        //   baseColor: Color.fromRGBO(255, 255, 255, 0.1),
+        //   selectionColor: baseColor,
+        //   handlerColor: Colors.white,
+        //   handlerOutterRadius: 12.0,
+        //   onSelectionChange: _updateLabels,
+        //   showRoundedCapInSelection: true,
+        //   showHandlerOutter: false,
+        //   child: Padding(
+        //       padding: const EdgeInsets.all(42.0),
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           SizedBox(height: 20),
+        //           Text('${_formatIntervalTime(inBedTime, outBedTime)}',
+        //               style: TextStyle(fontSize: 24.0, color: Colors.white)),
+        //           Text('${_formatDays(days)}',
+        //               style: TextStyle(
+        //                   fontSize: 16.0,
+        //                   color: Colors.white,
+        //                   fontStyle: FontStyle.italic)),
+        //         ],
+        //       )),
+        //   shouldCountLaps: true,
+        // ),
+        Container(
+          key: forceRebuild,
+          child: DoubleCircularSlider(
+            100,
+            initTime,
+            endTime,
+            height: 260.0,
+            width: 260.0,
+            primarySectors: 10,
+            secondarySectors: 100,
+            baseColor: Color.fromRGBO(255, 255, 255, 0.1),
+            selectionColor: baseColor,
+            handlerColor: Colors.white,
+            handlerOutterRadius: 12.0,
+            onSelectionChange: _updateLabels,
+            onSelectionEnd: (a, b, c) => print('onSelectionEnd $a $b $c'),
+            sliderStrokeWidth: 12.0,
+            child: Padding(
+                padding: const EdgeInsets.all(42.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 30),
+                    Text('${_formatIntervalTime(inBedTime, outBedTime)}',
+                        style: TextStyle(fontSize: 36.0, color: Colors.white)),
+                    Text('${_formatDays(days)}',
+                        style: TextStyle(
+                            fontSize: 28.0,
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic)),
+                  ],
+                )),
+            shouldCountLaps: true,
           ),
         ),
-      ),
-      
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          _formatBedTime('IN THE', inBedTime),
+          _formatBedTime('OUT OF', outBedTime),
+        ]),
+        FlatButton(
+          child: Text('S H U F F L E'),
+          color: baseColor,
+          textColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          onPressed: _shuffle,
+        ),
+      ],
     );
   }
 
-  void methodInChild() {
-    //  setState(() {
-    final randomizer = Random();
-    _currentValue = randomizer.nextDouble();
-    print('_currentValue from randomizer = $_currentValue');
-    if (_currentValue > 0.5) {
-      _currentValue = _currentValue - 0.5;
-    }
-    print('final _currentValue  = $_currentValue');
+  Widget _formatBedTime(String pre, int time) {
+    return Column(
+      children: [
+        Text(pre, style: TextStyle(color: baseColor)),
+        Text('BED AT', style: TextStyle(color: baseColor)),
+        Text(
+          '${_formatTime(time)}',
+          style: TextStyle(color: Colors.white),
+        )
+      ],
+    );
+  }
 
-    // });
+  String _formatDays(int days) {
+    return days > 0 ? ' (+$days)' : '';
+  }
+
+  String _formatTime(int time) {
+    if (time == 0 || time == null) {
+      return '00:00';
+    }
+    var hours = time ~/ 12;
+    var minutes = (time % 12) * 5;
+    return '$hours:$minutes';
+  }
+
+  String _formatIntervalTime(int init, int end) {
+    var sleepTime = end > init ? end - init : 288 - init + end;
+    var hours = sleepTime ~/ 12;
+    var minutes = (sleepTime % 12) * 5;
+    return '${hours}h${minutes}m';
+  }
+
+  int _generateRandomTime() => Random().nextInt(100);
+  void methodInChild() {
+
+    
+
+    
   }
 }
+

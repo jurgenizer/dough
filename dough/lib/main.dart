@@ -36,12 +36,15 @@ import 'package:dough/ui/styles.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
-  // call setupServiceLocator() first so entire app has access before building UI
-  setupServiceLocator();
-  SystemChrome.setPreferredOrientations([
+  /*
+   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  */
+  // call setupServiceLocator() early so entire app has access before building UI
+  setupServiceLocator();
+ 
   runApp(MyApp());
 }
 
@@ -51,11 +54,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-       // fontFamily: 'Monserrat',
         brightness: Brightness.light,
         primarySwatch: Styles.materialPrimarySwatchColor,
-        accentColor: Styles.neumorphicVariantColor,
-        buttonColor: Styles.neumorphicVariantColor,
         scaffoldBackgroundColor: Styles.scaffoldBackground,
       ),
       home: NeumorphicTheme(
@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
         theme: NeumorphicThemeData(
             defaultTextColor: Styles.neumorphicDefaultTextColor,
             accentColor: Styles.neumorphicAccentColor,
-            variantColor: Styles.neumorphicVariantColor,
             baseColor: Styles.neumorphicBaseColor,
             depth: 4.0,
             intensity: 0.6,

@@ -28,18 +28,17 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
   );
 
-  static const materialPrimarySwatchColor = Colors.green;
+  static const materialPrimarySwatchColor = Colors.blueGrey;
   static const materialSecondaryColor = Color(0xFFFD5523);
   static const neumorphicAccentColor = Colors.green;
-  static const neumorphicBaseColor = Color(0xFFFFFBE6);
-  static const neumorphicVariantColor = Colors.greenAccent;
+  static const neumorphicBaseColor = Colors.blueGrey;
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
   static const neumorphicGreyColor = Color(0xFF4d4d4d);
   static const neumorphicLightGreyColor = Color(0xFFD6D6D6);
 
   static const neumorphicBlackColor = Colors.black87;
 
-  static const scaffoldBackground = Color(0xFFFFFBE6);
+  static const scaffoldBackground = Colors.blueGrey;
 
   static const Color searchIconColor = Color.fromRGBO(128, 128, 128, 1);
 

@@ -69,7 +69,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text('dough currency converter'),
-           
             elevation: 0.0,
             actions: <Widget>[
               IconButton(
@@ -86,29 +85,23 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             ],
           ),
           body: Padding(
-      padding: const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
-      child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              baseCurrencyTitle(model),
-              //Circular Slider in the widgets folder
-               ConstrainedBox(
-         constraints: new BoxConstraints(
-    minHeight: 160.0,
-    maxHeight: 200.0,
-  ),
-  child:Expanded(
-                child: CircularSlider(
+            padding:
+                const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                //baseCurrencyTitle(model),
+                //Circular Slider in the widgets folder
+                CircularSlider(
                   key: _key,
                   function: methodInParent,
                 ),
-              ),
-               ),
-              quoteCurrencyList(model),
-            ],
+
+                //quoteCurrencyList(model),
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );
