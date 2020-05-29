@@ -29,7 +29,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
+//import 'package:flutter/services.dart' show DeviceOrientation, SystemChrome;
 import 'package:dough/services/service_locator.dart';
 import 'package:dough/ui/views/calculate_screen.dart';
 import 'package:dough/ui/styles.dart';

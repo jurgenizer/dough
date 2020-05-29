@@ -47,13 +47,13 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
 
   ValueKey<DateTime> forceRebuild;
+  int _multiplier;
 
   int initCurrencyValue;
   int endCurrencyValue;
 
   int startingValue;
   int endingValue;
-  int centuries;
 
   @override
   void initState() {
@@ -64,26 +64,34 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _reset() {
     setState(() {
+      _multiplier = 10;
       initCurrencyValue = 0; //_generateRandomTime();
       endCurrencyValue = 0; //_generateRandomTime();
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
-      centuries = 0;
+
       forceRebuild = ValueKey(DateTime.now());
     });
   }
 
+  //
+  void _multiplyByTen() {
+    setState(() {
+      if (_multiplier < 10000) {
+        _multiplier *= 10;
+      } else
+        _multiplier = _multiplier;
+    });
+  }
+
   void _updateLabels(int init, int end, int laps) {
-    print('laps =  $laps');
-    int hundreds = laps * 100;
-    int currencyIntValueToConvert = hundreds + end - init;
+    int currencyIntValueToConvert = _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print('The currencyValueToConvert string is $currencyStringValueToConvert');
     setState(() {
       startingValue = init;
       endingValue = end;
-      centuries = laps;
     });
   }
 
@@ -160,43 +168,54 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 18),
-                    Text(
-                        '${_formatIntervalValue(startingValue, endingValue, centuries)}',
+                    Text('${_formatIntervalValue(startingValue, endingValue)}',
                         style: TextStyle(fontSize: 38.0, color: Colors.white)),
                     Text('${model.baseCurrency.alphabeticCode}',
                         style: TextStyle(fontSize: 22.0, color: Colors.white)),
-                    Text('${_formatCenturies(centuries)}',
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
-                            fontStyle: FontStyle.italic)),
                   ],
                 )),
-            shouldCountLaps: true,
+            shouldCountLaps: false,
           ),
         ),
-        FlatButton(
-          child: Text('R E S E T'),
-          color: Styles.sliderSelectionColor,
-          textColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          IconButton(
+            icon: Icon(Icons.remove_circle_outline),
+            color: Styles.sliderSelectionColor,
+            tooltip: 'Divide by 10',
+            onPressed: () {
+              setState(() {
+                _multiplier = 10;
+              });
+            },
           ),
-          onPressed: _reset,
-        ),
+          FlatButton(
+            child: Text('R E S E T'),
+            color: Styles.sliderSelectionColor,
+            textColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+            onPressed: _reset,
+          ),
+          IconButton(
+            icon: Icon(Icons.add_circle_outline),
+            color: Styles.sliderSelectionColor,
+            tooltip: 'Multiply by 10',
+            onPressed: () {
+              _multiplyByTen();
+            },
+          ),
+          Text('$_multiplier')
+        ]),
       ],
     );
   }
 
-  String _formatIntervalValue(int init, int end, int laps) {
+  String _formatIntervalValue(int init, int end) {
     // var currencyValue = end > init ? end - init : 100 - init + end;
-    var currencyValue =  100 + end - init;
+    var currencyValue = _multiplier * (end - init);
 
     return '$currencyValue';
-  }
-
-  String _formatCenturies(int centuries) {
-    return centuries > 0 ? ' (+$centuries)' : '';
   }
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
