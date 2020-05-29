@@ -43,8 +43,6 @@ class ChooseFavoriteCurrencyScreen extends StatefulWidget {
 
 class _ChooseFavoriteCurrencyScreenState
     extends State<ChooseFavoriteCurrencyScreen> {
-
-
   ChooseFavoritesViewModel model = serviceLocator<ChooseFavoritesViewModel>();
 
   bool checkMark = false;
@@ -58,18 +56,16 @@ class _ChooseFavoriteCurrencyScreenState
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(depth: 4,
-      intensity: 0.6),
-      child:  Scaffold(
-      appBar: AppBar(
-        title: Text('choose currencies'),
-        elevation: 0.0,
-      ),
-      body: Padding(
-      padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
-      child:     
-      buildListView(model),
-      ),
+      theme: NeumorphicThemeData(depth: 4, intensity: 0.6),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('choose currencies'),
+          elevation: 0.0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
+          child: buildListView(model),
+        ),
       ),
     );
   }
@@ -77,59 +73,53 @@ class _ChooseFavoriteCurrencyScreenState
   Widget buildListView(ChooseFavoritesViewModel viewModel) {
     // ChangeNotifier is a Provider that listens for changes
     return ChangeNotifierProvider<ChooseFavoritesViewModel>(
-      
       create: (context) => viewModel,
       // Consumer rebuilds the widget tree below it when there are changes
       child: Consumer<ChooseFavoritesViewModel>(
-        builder: (context, model, child) => Neumorphic(
-        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
-        style: NeumorphicStyle(
-          depth: -11,
-          intensity: 0.6,
-          color: Styles.neumorphicBaseColor,
-        ),
-        boxShape: NeumorphicBoxShape.roundRect(
-          BorderRadius.circular(12),
-        ),
-        child:
-         ListView.builder(
-          itemCount: model.choices.length,
-          itemBuilder: (context, index) {
-            return Card(
-               color: Colors.blueGrey[400],
-              elevation: 5,
-              borderOnForeground: false,
-              child: ListTile(
-                leading: SizedBox(
-                  width: 60,
-                  child: Text(
-                    '${model.choices[index].flag}',
-                    style: TextStyle(fontSize: 30),
+        builder: (context, model, child) => SafeArea(
+        child: Neumorphic(
+          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+          style: NeumorphicStyle(
+            depth: -11,
+            intensity: 0.6,
+            color: Styles.neumorphicBaseColor,
+          ),
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(12),
+          ),
+          child: ListView.builder(
+            itemCount: model.choices.length,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.blueGrey[300],
+                elevation: 5,
+                borderOnForeground: false,
+                child: ListTile(
+                  leading: SizedBox(
+                    width: 50,
+                    child: Text(
+                      '${model.choices[index].flag}',
+                      style: TextStyle(fontSize: 30),
+                    ),
                   ),
+                  // using the data in model, build the UI
+                  title: Text('${model.choices[index].alphabeticCode}'),
+                  subtitle: Text('${model.choices[index].longName}'),
+                  trailing: (model.choices[index].isFavorite)
+                      ? Icon(Icons.favorite,
+                          color: Styles.neumorphicAccentColor)
+                      : Icon(Icons.favorite_border),
+                  onTap: () {
+                    // Call method in model directly
+                    model.toggleFavoriteStatus(index);
+                  },
                 ),
-                // using the data in model, build the UI
-                title: Text('${model.choices[index].alphabeticCode}'),
-                subtitle: Text('${model.choices[index].longName}'),
-                
-                trailing: (model.choices[index].isFavorite)
-                    ? Icon(Icons.favorite, color: Styles.neumorphicAccentColor)
-                    : Icon(Icons.favorite_border),
-                onTap: () {
-                  // Call method in model directly
-                  model.toggleFavoriteStatus(index);
-              
-            
-
-
-                },
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
-      
       ),
     );
   }
-
 }

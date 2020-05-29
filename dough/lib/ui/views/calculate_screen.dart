@@ -29,7 +29,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
@@ -52,43 +51,39 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   int initCurrencyValue;
   int endCurrencyValue;
 
-  int inBedTime;
-  int outBedTime;
-  int days = 0;
-
-/*   void methodInParent(double end) {
-    setState(() {
-      var currencyAmount = end > 0.0 ? end - 0.0 : 100.0 - 0.0 + end;
-      print('currencyAmount = $currencyAmount');
-      model.calculateExchange('$currencyAmount');
-    });
-  } */
+  int startingValue;
+  int endingValue;
+  int centuries;
 
   @override
   void initState() {
     model.loadData();
-    _shuffle();
+    _reset();
     super.initState();
   }
 
-  void _shuffle() {
+  void _reset() {
     setState(() {
       initCurrencyValue = 0; //_generateRandomTime();
-      endCurrencyValue = _generateRandomTime();
-      inBedTime = initCurrencyValue;
-      outBedTime = endCurrencyValue;
+      endCurrencyValue = 0; //_generateRandomTime();
+      startingValue = initCurrencyValue;
+      endingValue = endCurrencyValue;
+      centuries = 0;
       forceRebuild = ValueKey(DateTime.now());
     });
   }
 
   void _updateLabels(int init, int end, int laps) {
-    String currencyValueToConvert = end.toString();
-    model.calculateExchange(currencyValueToConvert);
-    print('The currencyValueToConvert string is $currencyValueToConvert');
+    print('laps =  $laps');
+    int hundreds = laps * 100;
+    int currencyIntValueToConvert = hundreds + end - init;
+    String currencyStringValueToConvert = currencyIntValueToConvert.toString();
+    model.calculateExchange(currencyStringValueToConvert);
+    print('The currencyValueToConvert string is $currencyStringValueToConvert');
     setState(() {
-      inBedTime = init;
-      outBedTime = end;
-      days = laps;
+      startingValue = init;
+      endingValue = end;
+      centuries = laps;
     });
   }
 
@@ -115,16 +110,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               )
             ],
           ),
-          body: Padding(
-            padding:
-                const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                circularSlider(context),
-                quoteCurrencyList(model),
-              ],
+          body: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  circularSlider(context),
+                  quoteCurrencyList(model),
+                ],
+              ),
             ),
           ),
         ),
@@ -162,42 +159,50 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 20),
-                    Text('${_formatIntervalTime(inBedTime, outBedTime)}',
-                        style: TextStyle(fontSize: 36.0, color: Colors.white)),
+                    SizedBox(height: 18),
+                    Text(
+                        '${_formatIntervalValue(startingValue, endingValue, centuries)}',
+                        style: TextStyle(fontSize: 38.0, color: Colors.white)),
                     Text('${model.baseCurrency.alphabeticCode}',
-                        style: TextStyle(fontSize: 24.0, color: Colors.white)),
+                        style: TextStyle(fontSize: 22.0, color: Colors.white)),
+                    Text('${_formatCenturies(centuries)}',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic)),
                   ],
                 )),
             shouldCountLaps: true,
           ),
         ),
         FlatButton(
-          child: Text('S H U F F L E'),
+          child: Text('R E S E T'),
           color: Styles.sliderSelectionColor,
           textColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.0),
           ),
-          onPressed: _shuffle,
+          onPressed: _reset,
         ),
       ],
     );
   }
 
-  int _generateRandomTime() => Random().nextInt(100);
+  String _formatIntervalValue(int init, int end, int laps) {
+    // var currencyValue = end > init ? end - init : 100 - init + end;
+    var currencyValue =  100 + end - init;
 
-  String _formatIntervalTime(int init, int end) {
-    var currencyValue = end > init ? end - init : 100 - init + end;
-    //  var hours = sleepTime ~/ 12;
-    //   var minutes = (sleepTime % 12) * 5;
     return '$currencyValue';
+  }
+
+  String _formatCenturies(int centuries) {
+    return centuries > 0 ? ' (+$centuries)' : '';
   }
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
       child: Neumorphic(
-        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         style: NeumorphicStyle(
           depth: -10,
           intensity: 0.6,
@@ -225,7 +230,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 subtitle: Text(model.quoteCurrencies[index].amount),
                 onTap: () {
                   model.setNewBaseCurrency(index);
-                  _shuffle();
+                  _reset();
                 },
               ),
             );
