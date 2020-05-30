@@ -59,11 +59,11 @@ class _ChooseFavoriteCurrencyScreenState
       theme: NeumorphicThemeData(depth: 4, intensity: 0.6),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('choose currencies'),
+          title: Text('Choose Currencies'),
           elevation: 0.0,
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 2),
+          padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
           child: buildListView(model),
         ),
       ),

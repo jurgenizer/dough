@@ -64,17 +64,15 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _reset() {
     setState(() {
-      _multiplier = 10;
+      _multiplier = 1;
       initCurrencyValue = 0; //_generateRandomTime();
       endCurrencyValue = 0; //_generateRandomTime();
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
-
       forceRebuild = ValueKey(DateTime.now());
     });
   }
 
-  //
   void _multiplyByTen() {
     setState(() {
       if (_multiplier < 10000) {
@@ -84,16 +82,35 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     });
   }
 
-  void _updateLabels(int init, int end, int laps) {
+  void _divideByTen() {
+    setState(() {
+      if (_multiplier >= 10) {
+        _multiplier ~/= 10;
+      } else
+        _multiplier = _multiplier;
+    });
+  }
+
+  void _calculateExchangeFromDial(int init, int end, int laps) {
     int currencyIntValueToConvert = _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
-    print('The currencyValueToConvert string is $currencyStringValueToConvert');
+    print('The currencyValueToConvert (Dial) string is $currencyStringValueToConvert');
     setState(() {
       startingValue = init;
       endingValue = end;
     });
   }
+
+    void _calculateExchangeFromButton(int init, int end) {
+    int currencyIntValueToConvert = _multiplier * (end - init);
+    String currencyStringValueToConvert = currencyIntValueToConvert.toString();
+    model.calculateExchange(currencyStringValueToConvert);
+    print('The currencyValueToConvert (Button) string is $currencyStringValueToConvert');
+  
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +119,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('dough currency converter'),
+            title: Text('Dough Currency Converter'),
             elevation: 0.0,
             actions: <Widget>[
               IconButton(
@@ -114,6 +131,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                         builder: (context) => ChooseFavoriteCurrencyScreen()),
                   );
                   model.refreshFavorites();
+                  _reset();
                 },
               )
             ],
@@ -121,7 +139,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           body: SafeArea(
             child: Padding(
               padding:
-                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 2),
+                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -141,11 +159,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          'How much to convert?',
-          style: TextStyle(color: Colors.white),
-        ),
-        SizedBox(height: 8),
         Container(
           key: forceRebuild,
           child: SingleCircularSlider(
@@ -159,7 +172,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             selectionColor: Styles.sliderSelectionColor,
             handlerColor: Colors.white,
             handlerOutterRadius: 12.0,
-            onSelectionChange: _updateLabels,
+            onSelectionChange: _calculateExchangeFromDial,
             showRoundedCapInSelection: true,
             showHandlerOutter: false,
             child: Padding(
@@ -167,9 +180,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 18),
+                    SizedBox(height: 16),
                     Text('${_formatIntervalValue(startingValue, endingValue)}',
-                        style: TextStyle(fontSize: 38.0, color: Colors.white)),
+                        style: TextStyle(fontSize: 36.0, color: Colors.white)),
                     Text('${model.baseCurrency.alphabeticCode}',
                         style: TextStyle(fontSize: 22.0, color: Colors.white)),
                   ],
@@ -183,9 +196,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             color: Styles.sliderSelectionColor,
             tooltip: 'Divide by 10',
             onPressed: () {
-              setState(() {
-                _multiplier = 10;
-              });
+              _divideByTen();
+               _calculateExchangeFromButton(startingValue, endingValue);
             },
           ),
           FlatButton(
@@ -203,9 +215,14 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             tooltip: 'Multiply by 10',
             onPressed: () {
               _multiplyByTen();
+              _calculateExchangeFromButton(startingValue, endingValue);
+              
             },
           ),
-          Text('$_multiplier')
+          Text(
+            'Magnitude: $_multiplier',
+            style: TextStyle(color: Colors.white),
+          ),
         ]),
       ],
     );
@@ -214,7 +231,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   String _formatIntervalValue(int init, int end) {
     // var currencyValue = end > init ? end - init : 100 - init + end;
     var currencyValue = _multiplier * (end - init);
-
     return '$currencyValue';
   }
 

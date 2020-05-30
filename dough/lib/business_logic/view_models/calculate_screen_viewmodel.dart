@@ -103,6 +103,8 @@ class CalculateScreenViewModel extends ChangeNotifier {
     try {
       amount = double.parse(baseAmount);
     } catch (e) {
+      //_updateCurrenciesFor(0);
+      //This is a bit hacky, must improve
       _updateCurrenciesFor(0);
       notifyListeners();
       return null;
