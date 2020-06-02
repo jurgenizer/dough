@@ -29,15 +29,11 @@ abstract class Styles {
   static const materialSecondaryColor = Color(0xFFFD5523);
   static const neumorphicAccentColor = Colors.lime;
   static const neumorphicBaseColor = Colors.blueGrey;
+  static const neumorphicBorderColor = Color(0x33000000);
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
-  static const neumorphicGreyColor = Color(0xFF4d4d4d);
-  static const neumorphicLightGreyColor = Color(0xFFD6D6D6);
-
-  static const neumorphicBlackColor = Colors.black87;
+ 
 
   static const scaffoldBackground = Colors.blueGrey;
 
-  static const Color searchIconColor = Color.fromRGBO(128, 128, 128, 1);
-
-  static const Color iconBlue = Color(0xff0000ff);
+ 
 }

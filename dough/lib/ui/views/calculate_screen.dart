@@ -36,6 +36,7 @@ import 'choose_favorites.dart';
 import 'package:dough/ui/styles.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -47,6 +48,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
 
   ValueKey<DateTime> forceRebuild;
+
   int _multiplier;
 
   int initCurrencyValue;
@@ -95,22 +97,21 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     int currencyIntValueToConvert = _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
-    print('The currencyValueToConvert (Dial) string is $currencyStringValueToConvert');
+    print(
+        'The currencyValueToConvert (Dial) string is $currencyStringValueToConvert');
     setState(() {
       startingValue = init;
       endingValue = end;
     });
   }
 
-    void _calculateExchangeFromButton(int init, int end) {
+  void _calculateExchangeFromButton(int init, int end) {
     int currencyIntValueToConvert = _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
-    print('The currencyValueToConvert (Button) string is $currencyStringValueToConvert');
-  
+    print(
+        'The currencyValueToConvert (Button) string is $currencyStringValueToConvert');
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,11 +145,72 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  circularSlider(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      divideButton(context),
+                      circularSlider(context),
+                      multiplyButton(context),
+                    ],
+                  ),
                   quoteCurrencyList(model),
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget divideButton(BuildContext context) {
+    return Neumorphic(
+      boxShape: NeumorphicBoxShape.circle(),
+      style: NeumorphicStyle(
+        depth: 20,
+        intensity: 0.4,
+      ),
+      child: NeumorphicButton(
+        boxShape: NeumorphicBoxShape.circle(),
+        padding: EdgeInsets.all(12.0),
+        child: FaIcon(FontAwesomeIcons.divide, color: Colors.white),
+        onClick: () {
+          _divideByTen();
+          _calculateExchangeFromButton(startingValue, endingValue);
+        },
+        style: NeumorphicStyle(
+          depth: -1,
+          border: NeumorphicBorder(
+            isEnabled: true,
+            color: Styles.neumorphicBorderColor,
+            width: 0.8,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget multiplyButton(BuildContext context) {
+    return Neumorphic(
+      boxShape: NeumorphicBoxShape.circle(),
+      style: NeumorphicStyle(
+        depth: 20,
+        intensity: 0.4,
+      ),
+      child: NeumorphicButton(
+        boxShape: NeumorphicBoxShape.circle(),
+        padding: EdgeInsets.all(12.0),
+        child: FaIcon(FontAwesomeIcons.divide, color: Colors.white),
+        onClick: () {
+          _multiplyByTen();
+          _calculateExchangeFromButton(startingValue, endingValue);
+        },
+        style: NeumorphicStyle(
+          depth: -1,
+          border: NeumorphicBorder(
+            isEnabled: true,
+            color: Styles.neumorphicBorderColor,
+            width: 0.8,
           ),
         ),
       ),
@@ -191,15 +253,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          IconButton(
-            icon: Icon(Icons.remove_circle_outline),
-            color: Styles.sliderSelectionColor,
-            tooltip: 'Divide by 10',
-            onPressed: () {
-              _divideByTen();
-               _calculateExchangeFromButton(startingValue, endingValue);
-            },
-          ),
           FlatButton(
             child: Text('R E S E T'),
             color: Styles.sliderSelectionColor,
@@ -208,20 +261,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               borderRadius: BorderRadius.circular(50.0),
             ),
             onPressed: _reset,
-          ),
-          IconButton(
-            icon: Icon(Icons.add_circle_outline),
-            color: Styles.sliderSelectionColor,
-            tooltip: 'Multiply by 10',
-            onPressed: () {
-              _multiplyByTen();
-              _calculateExchangeFromButton(startingValue, endingValue);
-              
-            },
-          ),
-          Text(
-            'Magnitude: $_multiplier',
-            style: TextStyle(color: Colors.white),
           ),
         ]),
       ],
@@ -242,6 +281,11 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           depth: -10,
           intensity: 0.6,
           color: Styles.neumorphicBaseColor,
+          border: NeumorphicBorder(
+            isEnabled: true,
+            color: Styles.neumorphicBorderColor,
+            width: 0.8,
+          ),
         ),
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(12),
