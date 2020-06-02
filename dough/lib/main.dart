@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Styles.scaffoldBackground,
       ),
       home: NeumorphicTheme(
-        usedTheme: UsedTheme.DARK,
+        usedTheme: UsedTheme.LIGHT,
         theme: NeumorphicThemeData(
             defaultTextColor: Styles.neumorphicDefaultTextColor,
             accentColor: Styles.neumorphicAccentColor,

@@ -34,6 +34,7 @@ import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
 import 'package:dough/ui/styles.dart';
+import 'package:dough/ui/widgets/about_icon.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -120,47 +121,71 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Dough Currency Converter'),
+            title: Text('Dough'),
             elevation: 0.0,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChooseFavoriteCurrencyScreen()),
-                  );
-                  model.refreshFavorites();
-                  _reset();
+            leading: IconButton(
+              tooltip: 'About the app',
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                showAboutDialog(
+                  context: context,
+                  applicationVersion: '1.0.0',
+                   applicationIcon: AboutIcon(),
+                  applicationLegalese:
+                      'This application has been approved for all audiences.',
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                          'This is where I\'d put more information about '
+                          'this app, if there was anything interesting to say.'),
+                    ),
+                  ],
+                );
                 },
-              )
-            ],
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      divideButton(context),
-                      circularSlider(context),
-                      multiplyButton(context),
-                    ],
-                  ),
-                  quoteCurrencyList(model),
-                ],
+            ),
+              actions: <Widget>[
+                IconButton(
+                  tooltip: 'Choose fav currencies',
+                  icon: Icon(Icons.favorite_border),
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChooseFavoriteCurrencyScreen()),
+                    );
+                    model.refreshFavorites();
+                    _reset();
+                  },
+                )
+              ],
+            ),
+            body: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        divideButton(context),
+                        circularSlider(context),
+                        multiplyButton(context),
+                      ],
+                    ),
+                    SizedBox(height: 12.0),
+                    quoteCurrencyList(model),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+         );
   }
 
   Widget divideButton(BuildContext context) {
@@ -173,7 +198,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
         padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.divide, color: Colors.white),
+        child: FaIcon(FontAwesomeIcons.divide, size: 21.0, color: Colors.white),
         onClick: () {
           _divideByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -200,7 +225,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
         padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.divide, color: Colors.white),
+        child: FaIcon(FontAwesomeIcons.times, size: 21.0, color: Colors.white),
         onClick: () {
           _multiplyByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -252,6 +277,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             shouldCountLaps: false,
           ),
         ),
+        /*
         Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           FlatButton(
             child: Text('R E S E T'),
@@ -263,6 +289,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             onPressed: _reset,
           ),
         ]),
+        */
       ],
     );
   }
@@ -278,42 +305,50 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: Neumorphic(
         padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         style: NeumorphicStyle(
-          depth: -10,
-          intensity: 0.6,
+          depth: 20,
+          intensity: 0.4,
           color: Styles.neumorphicBaseColor,
-          border: NeumorphicBorder(
-            isEnabled: true,
-            color: Styles.neumorphicBorderColor,
-            width: 0.8,
-          ),
         ),
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(12),
         ),
-        child: ListView.builder(
-          itemCount: model.quoteCurrencies.length,
-          itemBuilder: (context, index) {
-            return Card(
-              color: Colors.blueGrey[300],
-              elevation: 5,
-              borderOnForeground: false,
-              child: ListTile(
-                leading: SizedBox(
-                  width: 80,
-                  child: Text(
-                    '${model.quoteCurrencies[index].alphabeticCode}',
-                    style: Styles.quoteCurrencyAlphabeticCode,
+        child: Neumorphic(
+          style: NeumorphicStyle(
+            depth: -16,
+            border: NeumorphicBorder(
+              isEnabled: true,
+              color: Styles.neumorphicBorderColor,
+              width: 0.8,
+            ),
+          ),
+       //   boxShape: NeumorphicBoxShape.roundRect(
+       //     BorderRadius.circular(12),
+       //   ),
+          child: ListView.builder(
+            itemCount: model.quoteCurrencies.length,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.blueGrey[300],
+                elevation: 4,
+                borderOnForeground: false,
+                child: ListTile(
+                  leading: SizedBox(
+                    width: 80,
+                    child: Text(
+                      '${model.quoteCurrencies[index].alphabeticCode}',
+                      style: Styles.quoteCurrencyAlphabeticCode,
+                    ),
                   ),
+                  title: Text(model.quoteCurrencies[index].longName),
+                  subtitle: Text(model.quoteCurrencies[index].amount),
+                  onTap: () {
+                    model.setNewBaseCurrency(index);
+                    _reset();
+                  },
                 ),
-                title: Text(model.quoteCurrencies[index].longName),
-                subtitle: Text(model.quoteCurrencies[index].amount),
-                onTap: () {
-                  model.setNewBaseCurrency(index);
-                  _reset();
-                },
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
