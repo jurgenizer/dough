@@ -18,6 +18,7 @@ dependencies:
   flutter_neumorphic: ^2.1.0+1
   flutter_circular_slider: ^2.5.0
   font_awesome_flutter: ^8.8.1
+  url_launcher: ^5.4.10
 
 
   # The following adds the Cupertino Icons font to your application.

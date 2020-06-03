@@ -42,7 +42,7 @@ abstract class Styles {
 
   static const minorText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-    fontSize: 16,
+    fontSize: 14,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
@@ -51,6 +51,7 @@ abstract class Styles {
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
   static const materialSecondaryColor = Color(0xFFFD5523);
+  
   static const neumorphicAccentColor = Colors.lime;
   static const neumorphicBaseColor = Colors.blueGrey;
   static const neumorphicBorderColor = Color(0x33000000);
@@ -58,6 +59,7 @@ abstract class Styles {
  
 
   static const scaffoldBackground = Colors.blueGrey;
+  static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
 
  
 }

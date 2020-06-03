@@ -89,10 +89,12 @@ class _ChooseFavoriteCurrencyScreenState
           title: Text('Choose Currencies'),
           elevation: 0.0,
         ),
-        body: Padding(
+        body: SafeArea(
+          child: Padding(
           padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
           child: buildListView(model),
         ),
+      ),
       ),
     );
   }

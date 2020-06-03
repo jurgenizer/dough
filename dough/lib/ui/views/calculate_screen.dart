@@ -29,7 +29,7 @@
  * THE SOFTWARE.
  */
 
- /* 
+/* 
  * LICENSE 2 for code changes and additions by Jurgen Geitner
  *
  * MIT License
@@ -60,8 +60,8 @@ import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart
 import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
+import 'about_screen.dart';
 import 'package:dough/ui/styles.dart';
-import 'package:dough/ui/widgets/about_icon.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -150,69 +150,93 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           appBar: AppBar(
             title: Text('Dough'),
             elevation: 0.0,
-            leading: IconButton(
-              tooltip: 'About the app',
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                showAboutDialog(
-                  context: context,
-                  applicationVersion: '1.0.0',
-                   applicationIcon: AboutIcon(),
-                  applicationLegalese:
-                      'This application has been approved for all audiences.',
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                          'This is where I\'d put more information about '
-                          'this app, if there was anything interesting to say.'),
-                    ),
-                  ],
-                );
+            automaticallyImplyLeading: true,
+             actions: <Widget>[
+              IconButton(
+                tooltip: 'Choose fav currencies',
+                icon: Icon(Icons.favorite_border),
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChooseFavoriteCurrencyScreen()),
+                  );
+                  model.refreshFavorites();
+                  _reset();
                 },
-            ),
-              actions: <Widget>[
-                IconButton(
-                  tooltip: 'Choose fav currencies',
-                  icon: Icon(Icons.favorite_border),
-                  onPressed: () async {
+              )
+            ],
+          ),
+          drawer: Drawer(
+            semanticLabel: 'Menu items: about, privacy policy, licenses.',
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Text('Drawer Header'),
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey,
+                  ),
+                ),
+                ListTile(
+                  title: Text('About'),
+                  onTap: () async {
                     await Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => ChooseFavoriteCurrencyScreen()),
+                      MaterialPageRoute(builder: (context) => AboutScreen()),
                     );
-                    model.refreshFavorites();
-                    _reset();
+
+                    Navigator.pop(context);
                   },
-                )
+                ),
+                ListTile(
+                  title: Text('Privacy Policy'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                    // Then close the drawer.
+                    Navigator.pop(context);
+                  },
+                ),
+                                ListTile(
+                  title: Text('Licenses'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                    // Then close the drawer.
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ),
-            body: SafeArea(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        divideButton(context),
-                        circularSlider(context),
-                        multiplyButton(context),
-                      ],
-                    ),
-                    SizedBox(height: 12.0),
-                    quoteCurrencyList(model),
-                  ],
-                ),
+          ),
+          body: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      divideButton(context),
+                      circularSlider(context),
+                      multiplyButton(context),
+                    ],
+                  ),
+                  SizedBox(height: 22.0),
+                  quoteCurrencyList(model),
+                ],
               ),
             ),
           ),
         ),
-         );
+      ),
+    );
   }
 
   Widget divideButton(BuildContext context) {
@@ -322,7 +346,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   String _formatIntervalValue(int init, int end) {
-    // var currencyValue = end > init ? end - init : 100 - init + end;
     var currencyValue = _multiplier * (end - init);
     return '$currencyValue';
   }
@@ -330,7 +353,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
       child: Neumorphic(
-        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         style: NeumorphicStyle(
           depth: 20,
           intensity: 0.4,
@@ -341,40 +363,40 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
         ),
         child: Neumorphic(
           style: NeumorphicStyle(
-            depth: -16,
+            depth: -11,
             border: NeumorphicBorder(
               isEnabled: true,
               color: Styles.neumorphicBorderColor,
               width: 0.8,
             ),
           ),
-       //   boxShape: NeumorphicBoxShape.roundRect(
-       //     BorderRadius.circular(12),
-       //   ),
-          child: ListView.builder(
-            itemCount: model.quoteCurrencies.length,
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.blueGrey[300],
-                elevation: 4,
-                borderOnForeground: false,
-                child: ListTile(
-                  leading: SizedBox(
-                    width: 80,
-                    child: Text(
-                      '${model.quoteCurrencies[index].alphabeticCode}',
-                      style: Styles.quoteCurrencyAlphabeticCode,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListView.builder(
+              itemCount: model.quoteCurrencies.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  color: Colors.blueGrey[300],
+                  elevation: 4,
+                  borderOnForeground: false,
+                  child: ListTile(
+                    leading: SizedBox(
+                      width: 80,
+                      child: Text(
+                        '${model.quoteCurrencies[index].alphabeticCode}',
+                        style: Styles.quoteCurrencyAlphabeticCode,
+                      ),
                     ),
+                    title: Text(model.quoteCurrencies[index].longName),
+                    subtitle: Text(model.quoteCurrencies[index].amount),
+                    onTap: () {
+                      model.setNewBaseCurrency(index);
+                      _reset();
+                    },
                   ),
-                  title: Text(model.quoteCurrencies[index].longName),
-                  subtitle: Text(model.quoteCurrencies[index].amount),
-                  onTap: () {
-                    model.setNewBaseCurrency(index);
-                    _reset();
-                  },
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
