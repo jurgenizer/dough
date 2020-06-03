@@ -10,6 +10,8 @@ The core code and architechture are based on this very good provider state manag
 
 Thank you to [Idean](https://www.idean.com/) for the Flutter-Neumorphic package, available [here](https://pub.dev/packages/flutter_neumorphic).
 
+Exchange rate api provided by [https://exchangeratesapi.io/](https://exchangeratesapi.io/) - much appreciated, thank you!
+
 Hat-tip also to [David Anaya](https://github.com/davidanaya/flutter-circular-slider) for the neat Flutter Circular Slider [package](https://pub.dev/packages/flutter_circular_slider).
 
 ### License
