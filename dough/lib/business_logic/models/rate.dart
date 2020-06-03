@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Razeware LLC and Jurgen Geitner
+ * Copyright (c) 2020 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
