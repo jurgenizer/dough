@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dough/ui/styles.dart';
+import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -29,15 +30,57 @@ class AboutScreen extends StatelessWidget {
   Widget textSection(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Text(
-        'Dough is a currency convertor app for Android and iOS, made with Flutter. '
-        'I built this design study to explore neumorphism and improve my Flutter development skills. '
-        '\nThe core code and architechture are based on this very good provider state management tutorial (https://www.raywenderlich.com/6373413-state-management-with-provider) by Jonathan at [raywenderlich.com](https://www.raywenderlich.com). '
-        '\nThank you to [Idean](https://www.idean.com/) for the Flutter-Neumorphic package, available [here](https://pub.dev/packages/flutter_neumorphic). '
-        '\nExchange rate api provided by [https://exchangeratesapi.io/](https://exchangeratesapi.io/) - much appreciated, thank you! '
-        '\nHat-tip also to [David Anaya](https://github.com/davidanaya/flutter-circular-slider) for the neat Flutter Circular Slider [package](https://pub.dev/packages/flutter_circular_slider).',
+      child: RichText(
         softWrap: true,
-        style: Styles.minorText,
+        text: TextSpan(
+          text:
+              'Dough is a currency convertor app for Android and iOS, built with Flutter. '
+              '\n\nI created this design study to improve my Flutter development skills and to explore neumorphic design. '
+              '\n\nThe core code and architecture are based on a very good ',
+          style: Styles.minorText,
+          children: <TextSpan>[
+            TextSpan(
+                text: 'provider state management tutorial ',
+                style: Styles.minorTextLink,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launch(
+                        'https://www.raywenderlich.com/6373413-state-management-with-provider');
+                  }),
+            TextSpan(
+                text: 'by Jonathan at raywenderlich.com. '
+                    '\n\nThank you to ',
+                style: Styles.minorText),
+            TextSpan(
+                text: 'Idean',
+                style: Styles.minorTextLink,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launch('https://www.idean.com/');
+                  }),
+            TextSpan(
+                text: ' for the Flutter-Neumorphic package.'
+                    '\n\nExchange rate api provided by ',
+                style: Styles.minorText),
+            TextSpan(
+                text: 'https://exchangeratesapi.io/',
+                style: Styles.minorTextLink,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launch('https://exchangeratesapi.io/');
+                  }),
+            TextSpan(
+                text: '\n\nHat-tip also to David Anaya for the neat ',
+                style: Styles.minorText),
+            TextSpan(
+                text: 'Flutter Circular Slider package',
+                style: Styles.minorTextLink,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launch('https://pub.dev/packages/flutter_circular_slider');
+                  }),
+          ],
+        ),
       ),
     );
   }

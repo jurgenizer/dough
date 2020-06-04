@@ -97,7 +97,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   void _reset() {
     setState(() {
       _multiplier = 1;
-      initCurrencyValue = 0; //_generateRandomTime();
+      initCurrencyValue = 0; 
       endCurrencyValue = 0; //_generateRandomTime();
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
@@ -230,7 +230,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       divideButton(context),

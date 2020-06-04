@@ -52,10 +52,19 @@ abstract class Styles {
 
   static const minorText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-    fontSize: 14,
+    fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
+
+  static const minorTextLink = TextStyle(
+    color: Color(0xFF1EB980),
+    fontSize: 15,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.bold,
+    //decoration: TextDecoration.underline,
+  );
+
 
   static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
