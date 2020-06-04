@@ -61,6 +61,8 @@ import 'package:dough/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
 import 'about_screen.dart';
+import 'privacy_screen.dart';
+import 'license_screen.dart';
 import 'package:dough/ui/styles.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -151,7 +153,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             title: Text('Dough'),
             elevation: 0.0,
             automaticallyImplyLeading: true,
-             actions: <Widget>[
+            actions: <Widget>[
               IconButton(
                 tooltip: 'Choose fav currencies',
                 icon: Icon(Icons.favorite_border),
@@ -169,46 +171,54 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           ),
           drawer: Drawer(
             semanticLabel: 'Menu items: about, privacy policy, licenses.',
-            child: ListView(
-              // Important: Remove any padding from the ListView.
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child: Text('Drawer Header'),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey,
+            child: Container(
+              color: Styles.appBackgroundLight,
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  DrawerHeader(
+                    child: Text('Information', style: Styles.drawerTitleText),
+                    decoration: BoxDecoration(
+                      color: Styles.rallyDarkGreenColor,
+                    ),
                   ),
-                ),
-                ListTile(
-                  title: Text('About'),
-                  onTap: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AboutScreen()),
-                    );
+                  ListTile(
+                    title: Text('About', style: Styles.drawerListTileText,),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutScreen()),
+                      );
 
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: Text('Privacy Policy'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                    // Then close the drawer.
-                    Navigator.pop(context);
-                  },
-                ),
-                                ListTile(
-                  title: Text('Licenses'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                    // Then close the drawer.
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Privacy Policy',
+                        style: Styles.drawerListTileText),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrivacyScreen()),
+                      );
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Licenses', style: Styles.drawerListTileText),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LicenseScreen()),
+                      );
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           body: SafeArea(

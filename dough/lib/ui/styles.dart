@@ -26,12 +26,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-  static const baseCurrencyTitleText = TextStyle(
-    color: Color.fromRGBO(0, 0, 0, 0.9),
-    fontSize: 24,
+
+
+    static const drawerTitleText = TextStyle(
+    color: Colors.white,
+    fontSize: 27,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
+
+    static const drawerListTileText = TextStyle(
+    color:  Color.fromRGBO(0, 0, 0, 0.9),
+    fontSize: 20,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
 
   static const quoteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
@@ -50,9 +60,10 @@ abstract class Styles {
   static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
-  static const materialSecondaryColor = Color(0xFFFD5523);
+  static const rallyGreenColor = Color(0xFF1EB980);
+  static const rallyDarkGreenColor = Color(0xFF045D56);
   
-  static const neumorphicAccentColor = Colors.lime;
+  static const neumorphicAccentColor = Color(0xFF1EB980);
   static const neumorphicBaseColor = Colors.blueGrey;
   static const neumorphicBorderColor = Color(0x33000000);
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
@@ -60,6 +71,8 @@ abstract class Styles {
 
   static const scaffoldBackground = Colors.blueGrey;
   static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
+
+  static const appBackgroundLight = Color(0xffd0d0d0);
 
  
 }
