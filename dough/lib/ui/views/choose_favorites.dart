@@ -29,7 +29,7 @@
  * THE SOFTWARE.
  */
 
- /* 
+/* 
  * LICENSE 2 for code changes and additions by Jurgen Geitner
  *
  * MIT License
@@ -83,18 +83,19 @@ class _ChooseFavoriteCurrencyScreenState
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(depth: 4, intensity: 0.6),
+      theme: NeumorphicThemeData(depth: 4, intensity: 0.6, baseColor: Styles.neumorphicBaseColor),
       child: Scaffold(
-        appBar: AppBar(
+          appBar: AppBar(
           title: Text('Choose Currencies'),
           elevation: 0.0,
         ),
         body: SafeArea(
           child: Padding(
-          padding: const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
-          child: buildListView(model),
+            padding:
+                const EdgeInsets.only(left: 12, top: 12, right: 12, bottom: 12),
+            child: buildListView(model),
+          ),
         ),
-      ),
       ),
     );
   }
@@ -106,48 +107,61 @@ class _ChooseFavoriteCurrencyScreenState
       // Consumer rebuilds the widget tree below it when there are changes
       child: Consumer<ChooseFavoritesViewModel>(
         builder: (context, model, child) => SafeArea(
-        child: Neumorphic(
-          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-          style: NeumorphicStyle(
-            depth: -11,
-            intensity: 0.6,
-            color: Styles.neumorphicBaseColor,
-          ),
-          boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(12),
-          ),
-          child: ListView.builder(
-            itemCount: model.choices.length,
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.blueGrey[300],
-                elevation: 5,
-                borderOnForeground: false,
-                child: ListTile(
-                  leading: SizedBox(
-                    width: 50,
-                    child: Text(
-                      '${model.choices[index].flag}',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-                  // using the data in model, build the UI
-                  title: Text('${model.choices[index].alphabeticCode}'),
-                  subtitle: Text('${model.choices[index].longName}'),
-                  trailing: (model.choices[index].isFavorite)
-                      ? Icon(Icons.favorite,
-                          color: Styles.rallyDarkGreenColor)
-                      : Icon(Icons.favorite_border),
-                  onTap: () {
-                    // Call method in model directly
-                    model.toggleFavoriteStatus(index);
+          child: Neumorphic(
+            margin: EdgeInsets.all(4),
+            style: NeumorphicStyle(
+              depth: 7,
+              intensity: 0.4,
+              color: Styles.neumorphicBaseColor,
+            ),
+            boxShape: NeumorphicBoxShape.roundRect(
+              BorderRadius.circular(12),
+            ),
+            child: Neumorphic(
+              style: NeumorphicStyle(
+                depth: -11,
+                border: NeumorphicBorder(
+                  isEnabled: true,
+                  color: Styles.neumorphicBorderColor,
+                  width: 0.8,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: ListView.builder(
+                  itemCount: model.choices.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Colors.blueGrey[300],
+                      elevation: 1,
+                      borderOnForeground: false,
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: 50,
+                          child: Text(
+                            '${model.choices[index].flag}',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                        // using the data in model, build the UI
+                        title: Text('${model.choices[index].alphabeticCode}'),
+                        subtitle: Text('${model.choices[index].longName}'),
+                        trailing: (model.choices[index].isFavorite)
+                            ? Icon(Icons.favorite,
+                                color: Styles.rallyGreenColor)
+                            : Icon(Icons.favorite_border),
+                        onTap: () {
+                          // Call method in model directly
+                          model.toggleFavoriteStatus(index);
+                        },
+                      ),
+                    );
                   },
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ),
-      ),
       ),
     );
   }

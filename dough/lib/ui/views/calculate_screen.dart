@@ -56,17 +56,17 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_circular_slider/flutter_circular_slider.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
 import 'package:dough/services/service_locator.dart';
-import 'package:provider/provider.dart';
 import 'choose_favorites.dart';
 import 'about_screen.dart';
 import 'privacy_screen.dart';
 import 'license_screen.dart';
 import 'package:dough/ui/styles.dart';
-import 'package:flutter_circular_slider/flutter_circular_slider.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -97,7 +97,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   void _reset() {
     setState(() {
       _multiplier = 1;
-      initCurrencyValue = 0; 
+      initCurrencyValue = 0;
       endCurrencyValue = 0; //_generateRandomTime();
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
@@ -152,6 +152,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           appBar: AppBar(
             title: Text('Dough'),
             elevation: 0.0,
+            centerTitle: true,
             automaticallyImplyLeading: true,
             actions: <Widget>[
               IconButton(
@@ -180,11 +181,14 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   DrawerHeader(
                     child: Text('Information', style: Styles.drawerTitleText),
                     decoration: BoxDecoration(
-                      color: Styles.rallyDarkGreenColor,
+                      color: Styles.rallyGreenColor,
                     ),
                   ),
                   ListTile(
-                    title: Text('About', style: Styles.drawerListTileText,),
+                    title: Text(
+                      'About',
+                      style: Styles.drawerListTileText,
+                    ),
                     onTap: () async {
                       await Navigator.push(
                         context,
@@ -223,8 +227,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           ),
           body: SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 8, top: 2, right: 8, bottom: 8),
+              padding: const EdgeInsets.only(
+                  left: 12, top: 2, right: 12, bottom: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -253,7 +257,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     return Neumorphic(
       boxShape: NeumorphicBoxShape.circle(),
       style: NeumorphicStyle(
-        depth: 20,
+        depth: 19,
         intensity: 0.4,
       ),
       child: NeumorphicButton(
@@ -280,7 +284,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     return Neumorphic(
       boxShape: NeumorphicBoxShape.circle(),
       style: NeumorphicStyle(
-        depth: 20,
+        depth: 19,
         intensity: 0.4,
       ),
       child: NeumorphicButton(
@@ -312,8 +316,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           child: SingleCircularSlider(
             100,
             endCurrencyValue,
-            height: 210.0,
-            width: 210.0,
+            height: 220.0,
+            width: 220.0,
             primarySectors: 10,
             secondarySectors: 100,
             baseColor: Styles.sliderBaseColor,
@@ -324,7 +328,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             showRoundedCapInSelection: true,
             showHandlerOutter: false,
             child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(17.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -363,8 +367,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
       child: Neumorphic(
+        margin: EdgeInsets.all(4),
         style: NeumorphicStyle(
-          depth: 20,
+          depth: 7,
           intensity: 0.4,
           color: Styles.neumorphicBaseColor,
         ),
@@ -387,7 +392,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
               itemBuilder: (context, index) {
                 return Card(
                   color: Colors.blueGrey[300],
-                  elevation: 4,
+                  elevation: 1,
+                  //shadowColor: Styles.shadowColor,
                   borderOnForeground: false,
                   child: ListTile(
                     leading: SizedBox(

@@ -1,4 +1,4 @@
- /* 
+/* 
  * MIT License
  *
  * Copyright (c) 2020 Jurgen Geitner
@@ -26,22 +26,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-
-
-    static const drawerTitleText = TextStyle(
+  
+  static const drawerTitleText = TextStyle(
     color: Colors.white,
-    fontSize: 27,
+    fontSize: 25,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
-    static const drawerListTileText = TextStyle(
-    color:  Color.fromRGBO(0, 0, 0, 0.9),
-    fontSize: 20,
+  static const drawerListTileText = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontSize: 18,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
-
 
   static const quoteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
@@ -58,30 +56,28 @@ abstract class Styles {
   );
 
   static const minorTextLink = TextStyle(
-    color: Color(0xFF1EB980),
+    color: Color(0xFF05766C),
     fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     //decoration: TextDecoration.underline,
   );
 
-
   static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
-  static const rallyGreenColor = Color(0xFF1EB980);
+
+  static const rallyGreenColor = Color(0xFF05766C);
   static const rallyDarkGreenColor = Color(0xFF045D56);
-  
+
   static const neumorphicAccentColor = Color(0xFF1EB980);
   static const neumorphicBaseColor = Colors.blueGrey;
   static const neumorphicBorderColor = Color(0x33000000);
   static const neumorphicDefaultTextColor = Color(0xFF4d4d4d);
- 
 
+  static const shadowColor = Colors.black12;
   static const scaffoldBackground = Colors.blueGrey;
   static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
 
   static const appBackgroundLight = Color(0xffd0d0d0);
-
- 
 }
