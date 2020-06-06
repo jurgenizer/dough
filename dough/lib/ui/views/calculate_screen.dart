@@ -67,7 +67,6 @@ import 'about_screen.dart';
 import 'privacy_screen.dart';
 import 'license_screen.dart';
 import 'package:dough/ui/styles.dart';
-import 'package:dough/ui/widgets/information_icon.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
