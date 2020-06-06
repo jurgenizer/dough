@@ -29,7 +29,7 @@ abstract class Styles {
   
   static const drawerTitleText = TextStyle(
     color: Colors.white,
-    fontSize: 25,
+    fontSize: 24,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
@@ -48,6 +48,15 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
   );
 
+    static const minorTextHeading = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontSize: 22,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.bold,
+  );
+
+
+
   static const minorText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
     fontSize: 15,
@@ -55,8 +64,15 @@ abstract class Styles {
     fontWeight: FontWeight.normal,
   );
 
+        static const mediumText = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontSize: 20,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
   static const minorTextLink = TextStyle(
-    color: Color(0xFF05766C),
+    color: Color(0xFFFF6F00),
     fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
@@ -67,9 +83,8 @@ abstract class Styles {
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
 //static const rallyGreenColor = Color(0xFF05766C);
-  static const rallyGreenColor = Colors.green;
+  static const rallyOrangeColor = Color(0xFFFF6F00);
 
-  static const rallyDarkGreenColor = Color(0xFF045D56);
 
   static const neumorphicAccentColor = Color(0xFF1EB980);
   static const neumorphicBaseColor = Colors.blueGrey;

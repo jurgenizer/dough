@@ -148,7 +148,7 @@ class _ChooseFavoriteCurrencyScreenState
                         subtitle: Text('${model.choices[index].longName}'),
                         trailing: (model.choices[index].isFavorite)
                             ? Icon(Icons.favorite,
-                                color: Styles.rallyGreenColor)
+                                color: Styles.rallyOrangeColor)
                             : Icon(Icons.favorite_border),
                         onTap: () {
                           // Call method in model directly

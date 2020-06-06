@@ -19,6 +19,8 @@ class AboutScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: ListView(
             children: [
+              headingSection(context),
+              versionSection(context),
               textSection(context),
             ],
           ),
@@ -26,6 +28,27 @@ class AboutScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget headingSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Text(
+        'Dough',
+        style: Styles.minorTextHeading,
+      ),
+    );
+  }
+
+    Widget versionSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+      child: Text(
+        '1.0.0',
+        style: Styles.mediumText,
+      ),
+    );
+  }
+
 
   Widget textSection(BuildContext context) {
     return Container(

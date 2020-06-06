@@ -67,6 +67,7 @@ import 'about_screen.dart';
 import 'privacy_screen.dart';
 import 'license_screen.dart';
 import 'package:dough/ui/styles.dart';
+import 'package:dough/ui/widgets/information_icon.dart';
 
 class CalculateCurrencyScreen extends StatefulWidget {
   @override
@@ -178,16 +179,19 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 // Important: Remove any padding from the ListView.
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  DrawerHeader(
-                    child: Text('Information', style: Styles.drawerTitleText),
-                    decoration: BoxDecoration(
-                      color: Styles.scaffoldBackground,
+                  Container(
+                    height: 100.0,
+                    child: DrawerHeader(
+                      child: Text('Information', style: Styles.drawerTitleText),
+                      decoration: BoxDecoration(
+                        color: Styles.scaffoldBackground,
+                      ),
                     ),
                   ),
                   ListTile(
                     leading: Icon(
                       Icons.assignment,
-                      color: Styles.rallyGreenColor,
+                      color: Styles.rallyOrangeColor,
                       size: 24.0,
                     ),
                     title: Text(
@@ -206,7 +210,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   ListTile(
                     leading: Icon(
                       Icons.security,
-                      color: Styles.rallyGreenColor,
+                      color: Styles.rallyOrangeColor,
                       size: 24.0,
                     ),
                     title: Text('Privacy Policy',
@@ -223,7 +227,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   ListTile(
                     leading: Icon(
                       Icons.account_balance,
-                      color: Styles.rallyGreenColor,
+                      color: Styles.rallyOrangeColor,
                       size: 24.0,
                     ),
                     title: Text('Licenses', style: Styles.drawerListTileText),
@@ -252,9 +256,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                     // divideButton(context),
+                      divideButton(context),
                       circularSlider(context),
-                      //multiplyButton(context),
+                      multiplyButton(context),
                     ],
                   ),
                   SizedBox(height: 22.0),
