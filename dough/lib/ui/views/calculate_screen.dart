@@ -181,10 +181,15 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   DrawerHeader(
                     child: Text('Information', style: Styles.drawerTitleText),
                     decoration: BoxDecoration(
-                      color: Styles.rallyGreenColor,
+                      color: Styles.scaffoldBackground,
                     ),
                   ),
                   ListTile(
+                    leading: Icon(
+                      Icons.assignment,
+                      color: Styles.rallyGreenColor,
+                      size: 24.0,
+                    ),
                     title: Text(
                       'About',
                       style: Styles.drawerListTileText,
@@ -199,6 +204,11 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(
+                      Icons.security,
+                      color: Styles.rallyGreenColor,
+                      size: 24.0,
+                    ),
                     title: Text('Privacy Policy',
                         style: Styles.drawerListTileText),
                     onTap: () async {
@@ -211,6 +221,11 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     },
                   ),
                   ListTile(
+                    leading: Icon(
+                      Icons.account_balance,
+                      color: Styles.rallyGreenColor,
+                      size: 24.0,
+                    ),
                     title: Text('Licenses', style: Styles.drawerListTileText),
                     onTap: () async {
                       await Navigator.push(
@@ -237,9 +252,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      divideButton(context),
+                     // divideButton(context),
                       circularSlider(context),
-                      multiplyButton(context),
+                      //multiplyButton(context),
                     ],
                   ),
                   SizedBox(height: 22.0),
@@ -316,17 +331,18 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           child: SingleCircularSlider(
             100,
             endCurrencyValue,
-            height: 220.0,
-            width: 220.0,
+            height: 230.0,
+            width: 230.0,
             primarySectors: 10,
             secondarySectors: 100,
             baseColor: Styles.sliderBaseColor,
             selectionColor: Styles.sliderSelectionColor,
             handlerColor: Colors.white,
-            handlerOutterRadius: 12.0,
+            handlerOutterRadius: 14.0,
             onSelectionChange: _calculateExchangeFromDial,
             showRoundedCapInSelection: true,
             showHandlerOutter: false,
+            //sliderStrokeWidth: 12.0,
             child: Padding(
                 padding: const EdgeInsets.all(17.0),
                 child: Column(

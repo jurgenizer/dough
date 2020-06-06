@@ -66,8 +66,9 @@ abstract class Styles {
   static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
+//static const rallyGreenColor = Color(0xFF05766C);
+  static const rallyGreenColor = Colors.green;
 
-  static const rallyGreenColor = Color(0xFF05766C);
   static const rallyDarkGreenColor = Color(0xFF045D56);
 
   static const neumorphicAccentColor = Color(0xFF1EB980);
@@ -77,7 +78,7 @@ abstract class Styles {
 
   static const shadowColor = Colors.black12;
   static const scaffoldBackground = Colors.blueGrey;
-  static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
+  //static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
 
   static const appBackgroundLight = Color(0xffd0d0d0);
 }

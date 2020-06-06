@@ -42,6 +42,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/icon/dough-ios-icon.png"
+  image_path_android: "assets/icon/dough-android-icon.png"
+  adaptive_icon_background: "assets/icon/dough-android-adaptive-icon-background.png"
+  adaptive_icon_foreground: "assets/icon/dough-android-adaptive-icon-foreground.png"
+
+
   fonts:
     - family: NotoSans
       fonts:
@@ -55,3 +64,8 @@ flutter:
         - asset: assets/fonts/NotoSans-Italic.ttf
           style: italic
           weight: 400
+
+  assets:
+    - assets/images/pathlexi-logo.png
+    - assets/images/2.0x/dough-logo.png
+    - assets/images/3.0x/dough-logo.png
