@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dough/main.dart';
-import 'package:dough/ui/views/choose_favorites.dart';
-import 'package:dough/ui/views/calculate_screen.dart';
+//import 'package:dough/main.dart';
+//import 'package:dough/ui/views/choose_favorites.dart';
+//import 'package:dough/ui/views/calculate_screen.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 
 void main() {
