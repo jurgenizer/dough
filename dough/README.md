@@ -3,7 +3,7 @@
 An experimental Flutter currency convertor app for Android and iOS.
 
 ![Made With Flutter](https://img.shields.io/badge/-Made%20With%20Flutter-informational?style=flat-square&logo=flutter)
-![GitHub](https://img.shields.io/github/license/jurgenizer/dough?style=flat-square)
+<!--![GitHub](https://img.shields.io/github/license/jurgenizer/dough?style=flat-square)-->
 
 I built this design study to explore neumorphism and improve my Flutter development skills.
 The core code and architechture are based on this very good provider state management [tutorial](https://www.raywenderlich.com/6373413-state-management-with-provider) by Jonathan at [raywenderlich.com](https://www.raywenderlich.com). I added the circular slider and a little bit of neumorphism.
