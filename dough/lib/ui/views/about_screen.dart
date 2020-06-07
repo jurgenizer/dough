@@ -39,7 +39,7 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-    Widget versionSection(BuildContext context) {
+  Widget versionSection(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
       child: Text(
@@ -48,7 +48,6 @@ class AboutScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget textSection(BuildContext context) {
     return Container(

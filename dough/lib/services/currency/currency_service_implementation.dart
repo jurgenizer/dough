@@ -33,7 +33,6 @@ import 'package:dough/business_logic/models/rate.dart';
 import 'package:dough/services/storage/storage_service.dart';
 import 'package:dough/services/web_api/web_api.dart';
 import 'package:dough/services/service_locator.dart';
-
 import 'currency_service.dart';
 
 // This class is the concrete implementation of [CurrencyService]. It is a

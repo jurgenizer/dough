@@ -281,7 +281,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
         padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.divide, size: 21.0, color: Colors.white),
+        child: FaIcon(FontAwesomeIcons.divide, size: 20.0, color: Colors.white),
         onClick: () {
           _divideByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -308,7 +308,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
         padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.times, size: 21.0, color: Colors.white),
+        child: FaIcon(FontAwesomeIcons.times, size: 20.0, color: Colors.white),
         onClick: () {
           _multiplyByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -361,19 +361,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             shouldCountLaps: false,
           ),
         ),
-        /*
-        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          FlatButton(
-            child: Text('R E S E T'),
-            color: Styles.sliderSelectionColor,
-            textColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
-            ),
-            onPressed: _reset,
-          ),
-        ]),
-        */
       ],
     );
   }
