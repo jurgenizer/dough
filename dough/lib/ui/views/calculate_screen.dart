@@ -190,7 +190,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   ListTile(
                     leading: Icon(
                       Icons.assignment,
-                      color: Styles.rallyOrangeColor,
+                      color: Styles.rallyPinkColor,
                       size: 24.0,
                     ),
                     title: Text(
@@ -209,7 +209,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   ListTile(
                     leading: Icon(
                       Icons.security,
-                      color: Styles.rallyOrangeColor,
+                      color: Styles.rallyPinkColor,
                       size: 24.0,
                     ),
                     title: Text('Privacy Policy',
@@ -226,7 +226,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   ListTile(
                     leading: Icon(
                       Icons.account_balance,
-                      color: Styles.rallyOrangeColor,
+                      color: Styles.rallyPinkColor,
                       size: 24.0,
                     ),
                     title: Text('Licenses', style: Styles.drawerListTileText),
@@ -280,8 +280,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       ),
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
-        padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.divide, size: 20.0, color: Colors.white),
+        padding: EdgeInsets.all(14.0),
+        child: Text(
+          '÷10',
+          style: Styles.divideAndMultiplyButtonText),
         onClick: () {
           _divideByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -307,8 +309,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       ),
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
-        padding: EdgeInsets.all(12.0),
-        child: FaIcon(FontAwesomeIcons.times, size: 20.0, color: Colors.white),
+        padding: EdgeInsets.all(14.0),
+        child: Text('×10', style: Styles.divideAndMultiplyButtonText),
         onClick: () {
           _multiplyByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
@@ -353,9 +355,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   children: [
                     SizedBox(height: 16),
                     Text('${_formatIntervalValue(startingValue, endingValue)}',
-                        style: TextStyle(fontSize: 36.0, color: Colors.white)),
+                        style: Styles.sliderCurrencyValueText),
                     Text('${model.baseCurrency.alphabeticCode}',
-                        style: TextStyle(fontSize: 22.0, color: Colors.white)),
+                        style: Styles.sliderCurrencyAlphabeticCode),
                   ],
                 )),
             shouldCountLaps: false,
@@ -403,7 +405,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   borderOnForeground: false,
                   child: ListTile(
                     leading: SizedBox(
-                      width: 80,
+                      width: 76,
                       child: Text(
                         '${model.quoteCurrencies[index].alphabeticCode}',
                         style: Styles.quoteCurrencyAlphabeticCode,

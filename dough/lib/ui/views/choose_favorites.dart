@@ -83,9 +83,10 @@ class _ChooseFavoriteCurrencyScreenState
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(depth: 4, intensity: 0.6, baseColor: Styles.neumorphicBaseColor),
+      theme: NeumorphicThemeData(
+          depth: 4, intensity: 0.6, baseColor: Styles.neumorphicBaseColor),
       child: Scaffold(
-          appBar: AppBar(
+        appBar: AppBar(
           title: Text('Choose Currencies'),
           elevation: 0.0,
         ),
@@ -137,19 +138,21 @@ class _ChooseFavoriteCurrencyScreenState
                       borderOnForeground: false,
                       child: ListTile(
                         leading: SizedBox(
-                          width: 50,
+                          width: 44,
                           child: Text(
                             '${model.choices[index].flag}',
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 27),
                           ),
                         ),
                         // using the data in model, build the UI
-                        title: Text('${model.choices[index].alphabeticCode}'),
+                        title: Text(
+                          '${model.choices[index].alphabeticCode}',
+                          style: Styles.favouriteCurrencyAlphabeticCode,
+                        ),
                         subtitle: Text('${model.choices[index].longName}'),
                         trailing: (model.choices[index].isFavorite)
-                            ? Icon(Icons.favorite,
-                                color: Styles.rallyOrangeColor)
-                            : Icon(Icons.favorite_border),
+                            ? Icon(Icons.favorite, color: Styles.rallyPinkColor, size: 28)
+                            : Icon(Icons.favorite_border, size: 28),
                         onTap: () {
                           // Call method in model directly
                           model.toggleFavoriteStatus(index);

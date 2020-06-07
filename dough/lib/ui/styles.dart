@@ -26,9 +26,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-  
   static const drawerTitleText = TextStyle(
     color: Colors.white,
+   // fontFamily: 'NotoSans',
     fontSize: 24,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
@@ -36,6 +36,7 @@ abstract class Styles {
 
   static const drawerListTileText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'NotoSans',
     fontSize: 18,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
@@ -43,48 +44,87 @@ abstract class Styles {
 
   static const quoteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
-    fontSize: 30,
+    fontFamily: 'NotoSans',
+    fontSize: 34,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
-    static const minorTextHeading = TextStyle(
+
+    static const favouriteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'NotoSans',
+    fontSize: 28,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const sliderCurrencyValueText = TextStyle(
+    color: Colors.white,
+    fontFamily: 'NotoSans',
+    fontSize: 35,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
+    static const sliderCurrencyAlphabeticCode = TextStyle(
+    color: Colors.white,
+    fontFamily: 'NotoSans',
+    fontSize: 22,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
+  static const minorTextHeading = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'NotoSans',
     fontSize: 22,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
   );
 
-
-
   static const minorText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'NotoSans',
     fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
-        static const mediumText = TextStyle(
+  static const mediumText = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
+    fontFamily: 'NotoSans',
     fontSize: 20,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );
 
   static const minorTextLink = TextStyle(
-    color: Color(0xFFFF6F00),
+    color: Color(0xFF89043D),
+    fontFamily: 'NotoSans',
     fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     //decoration: TextDecoration.underline,
   );
 
+    static const divideAndMultiplyButtonText = TextStyle(
+    color: Colors.white70,
+    fontFamily: 'NotoSans',
+    fontSize: 21,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.normal,
+  );
+
+
+
   static const sliderSelectionColor = Color.fromRGBO(255, 255, 255, 0.3);
   static const sliderBaseColor = Color.fromRGBO(255, 255, 255, 0.1);
   static const materialPrimarySwatchColor = Colors.blueGrey;
-//static const rallyGreenColor = Color(0xFF05766C);
-  static const rallyOrangeColor = Color(0xFFFF6F00);
 
+  //static const rallyOrangeColor = Color(0xFFFF6F00);
+  static const rallyPinkColor = Color(0xFF89043D);
+  
 
   static const neumorphicAccentColor = Color(0xFF1EB980);
   static const neumorphicBaseColor = Colors.blueGrey;
