@@ -1,30 +1,41 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'package:flutter/material.dart';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dough/ui/views/about_screen.dart';
+import 'package:dough/main.dart';
+import 'package:dough/ui/views/choose_favorites.dart';
+import 'package:dough/ui/views/calculate_screen.dart';
+import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 
 void main() {
-  // Define a test. The TestWidgets function also provides a WidgetTester
-  // to work with. The WidgetTester allows you to build and interact
-  // with widgets in the test environment.
-  testWidgets('MyWidget has a title and message', (WidgetTester tester) async {
-    // Test code goes here.
-     // Create the widget by telling the tester to build it.
-    await tester.pumpWidget(AboutScreen());
-     // Create the Finders.
-    final titleFinder = find.text('T');
-    final messageFinder = find.text('M');
+  testWidgets('finds a text widget', (WidgetTester tester) async {
+    // Build an App with a Text widget that displays the letter 'H'.
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(body: Text('Information')),
+      ),
+    );
 
-    // Use the `findsOneWidget` matcher provided by flutter_test to verify
-    // that the Text widgets appear exactly once in the widget tree.
-    expect(titleFinder, findsOneWidget);
-    expect(messageFinder, findsOneWidget);
+    // Find a widget that displays 'Information''.
+    expect(find.text('Information'), findsOneWidget);
+  });
 
+  testWidgets('finds a circular slider instance', (WidgetTester tester) async {
+    final divisions = 100;
+    final position = 0;
+    final childWidget = SingleCircularSlider(divisions, position);
+    // Provide the childWidget to the Container.
+    await tester.pumpWidget(Container(child: childWidget));
+
+    // Search for the childWidget in the tree and verify it exists.
+    expect(find.byWidget(childWidget), findsOneWidget);
+  });
+
+  testWidgets('finds a Card instance', (WidgetTester tester) async {
+    final childWidget = Card();
+    // Provide the childWidget to the Container.
+    await tester.pumpWidget(Container(child: childWidget));
+
+    // Search for the childWidget in the tree and verify it exists.
+    expect(find.byWidget(childWidget), findsOneWidget);
   });
 }
-
