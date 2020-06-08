@@ -41,10 +41,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  assets:
-    - assets/images/dough-icon.png
-    - assets/images/2.0x/dough-icon.png
-    - assets/images/3.0x/dough-icon.png
+  # assets:
+    #- assets/images/dough-icon.png
+    #- assets/images/2.0x/dough-icon.png
+    #- assets/images/3.0x/dough-icon.png
 
   fonts:
     - family: NotoSans
