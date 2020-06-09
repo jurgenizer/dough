@@ -250,12 +250,12 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  circularSlider(context),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       divideButton(context),
-                      circularSlider(context),
                       multiplyButton(context),
                     ],
                   ),
@@ -280,9 +280,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
         padding: EdgeInsets.all(14.0),
-        child: Text(
-          '÷10',
-          style: Styles.divideAndMultiplyButtonText),
+        child: Text('÷10', style: Styles.divideAndMultiplyButtonText),
         onClick: () {
           _divideByTen();
           _calculateExchangeFromButton(startingValue, endingValue);
