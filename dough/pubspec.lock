@@ -83,6 +83,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  flutter_knob:
+    dependency: "direct main"
+    description:
+      name: flutter_knob
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

@@ -111,7 +111,7 @@ abstract class Styles {
     static const divideAndMultiplyButtonText = TextStyle(
     color: Colors.white70,
     fontFamily: 'NotoSans',
-    fontSize: 21,
+    fontSize: 19,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );

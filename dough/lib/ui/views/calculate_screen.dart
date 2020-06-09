@@ -57,6 +57,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
+import 'package:flutter_knob/flutter_knob.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
@@ -75,6 +76,16 @@ class CalculateCurrencyScreen extends StatefulWidget {
 
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
+
+  // knob vars
+
+  double _value = 0.0;
+  void _setValue(double value) => setState(() => _value = value);
+  static const double minValue = 0;
+  static const double maxValue = 10;
+
+
+  //
 
   ValueKey<DateTime> forceRebuild;
 
@@ -251,15 +262,17 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   circularSlider(context),
+                     SizedBox(height: 12.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       divideButton(context),
+                      fineTuningKnob(context),
                       multiplyButton(context),
                     ],
                   ),
-                  SizedBox(height: 22.0),
+                  SizedBox(height: 12.0),
                   quoteCurrencyList(model),
                 ],
               ),
@@ -279,7 +292,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       ),
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
-        padding: EdgeInsets.all(14.0),
+        padding: EdgeInsets.all(13.0),
         child: Text('÷10', style: Styles.divideAndMultiplyButtonText),
         onClick: () {
           _divideByTen();
@@ -306,7 +319,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       ),
       child: NeumorphicButton(
         boxShape: NeumorphicBoxShape.circle(),
-        padding: EdgeInsets.all(14.0),
+        padding: EdgeInsets.all(13.0),
         child: Text('×10', style: Styles.divideAndMultiplyButtonText),
         onClick: () {
           _multiplyByTen();
@@ -324,6 +337,36 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
+  Widget fineTuningKnob(BuildContext context){
+    return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+         
+          children: <Widget>[
+            Knob(
+              value: _value,
+              color: Styles.rallyPinkColor,
+              onChanged: _setValue,
+              min: minValue,
+              max: maxValue,
+              size: 42
+            ),
+            Slider(
+              activeColor: Colors.white,
+              inactiveColor: Colors.white30,
+                value: _value,
+                onChanged: _setValue,
+                min: minValue,
+                max: maxValue),
+            Text(
+              'Value: ${_value.toStringAsFixed(3)}',
+              style: Styles.minorText,
+            ),
+          ],
+        );
+
+
+  }
+
   Widget circularSlider(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -333,8 +376,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
           child: SingleCircularSlider(
             100,
             endCurrencyValue,
-            height: 230.0,
-            width: 230.0,
+            height: 224.0,
+            width: 224.0,
             primarySectors: 10,
             secondarySectors: 100,
             baseColor: Styles.sliderBaseColor,
@@ -346,7 +389,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             showHandlerOutter: false,
             //sliderStrokeWidth: 12.0,
             child: Padding(
-                padding: const EdgeInsets.all(17.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
