@@ -81,11 +81,22 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   double _knobValue = 0.0;
   double _multipliedKnobValue = 0.0;
-  
+
   void _setKnobValue(double knobValue) {
     print('The initial knobValue is $knobValue');
     _multipliedKnobValue = _multiplier * knobValue;
     print('The multiplied knobValue is $knobValue');
+    //
+
+    int currencyIntValueToConvert =
+        _multiplier * (endingValue - startingValue) +
+            _multipliedKnobValue.toInt();
+    String currencyStringValueToConvert = currencyIntValueToConvert.toString();
+    model.calculateExchange(currencyStringValueToConvert);
+    print(
+        'The currencyValueToConvert (Knob) string is $currencyStringValueToConvert');
+
+//
     setState(() {
       _knobValue = knobValue;
       _multipliedKnobValue = _multipliedKnobValue;
@@ -93,7 +104,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   static const double minKnobValue = 0;
-  static const double maxKnobValue = 1.0;
+  static const double maxKnobValue = 0.99999;
 
   //
 
@@ -147,9 +158,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   void _calculateExchangeFromDial(int init, int end, int laps) {
-   // int currencyIntValueToConvert = _multiplier * (end - init);
+    // int currencyIntValueToConvert = _multiplier * (end - init);
     print('The _multipliedKnobValue is $_multipliedKnobValue');
-    int currencyIntValueToConvert = _multiplier * (end - init) + (_multipliedKnobValue.toInt() - 1);
+    int currencyIntValueToConvert =
+        _multiplier * (end - init) + _multipliedKnobValue.toInt();
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -161,7 +173,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   void _calculateExchangeFromButton(int init, int end) {
-    int currencyIntValueToConvert = _multiplier * (end - init) + (_multipliedKnobValue.toInt() - 1);
+    int currencyIntValueToConvert =
+        _multiplier * (end - init) + _multipliedKnobValue.toInt();
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -379,8 +392,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   String _formatIntervalKnobValue() {
-    double knobCurrencyValue = _multipliedKnobValue - 1.0;
-     var knobCurrencyValueString = knobCurrencyValue.toStringAsFixed(0);
+    double knobCurrencyValue = _multipliedKnobValue;
+    var knobCurrencyValueString = knobCurrencyValue.toStringAsFixed(3);
 
     return '$knobCurrencyValueString';
   }
