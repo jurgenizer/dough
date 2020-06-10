@@ -45,7 +45,7 @@ abstract class Styles {
   static const quoteCurrencyAlphabeticCode = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.9),
     fontFamily: 'NotoSans',
-    fontSize: 34,
+    fontSize: 32,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
   );

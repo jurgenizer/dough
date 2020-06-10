@@ -79,13 +79,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   ValueKey<DateTime> forceRebuild;
 
   int _multiplier;
-
   int initCurrencyValue;
   int endCurrencyValue;
-
   int startingValue;
   int endingValue;
-  String appendix = '';
 
   @override
   void initState() {
@@ -101,7 +98,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       endCurrencyValue = 0;
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
-      appendix = '';
       forceRebuild = ValueKey(DateTime.now());
     });
   }
@@ -254,7 +250,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   circularSlider(context),
-                  SizedBox(height: 12.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -405,7 +400,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   //shadowColor: Styles.shadowColor,
                   borderOnForeground: false,
                   child: ListTile(
-                    contentPadding:EdgeInsets.all(6.0),
                     leading: SizedBox(
                       width: 76,
                       child: Text(
