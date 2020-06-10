@@ -124,7 +124,7 @@ abstract class Styles {
 
   //static const rallyOrangeColor = Color(0xFFFF6F00);
   static const rallyPinkColor = Color(0xFF89043D);
-  
+  static const cardBlueGreyColor = Color(0xFF90A4AE);
 
   static const neumorphicAccentColor = Color(0xFF1EB980);
   static const neumorphicBaseColor = Colors.blueGrey;
@@ -133,7 +133,7 @@ abstract class Styles {
 
   static const shadowColor = Colors.black12;
   static const scaffoldBackground = Colors.blueGrey;
-  //static const scaffoldBackgroundAboutScreen = Color(0xFF90A4AE);
+ 
 
   static const appBackgroundLight = Color(0xffd0d0d0);
 }

@@ -96,10 +96,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _reset() {
     setState(() {
-     
       _multiplier = 1;
       initCurrencyValue = 0;
-      endCurrencyValue = 0; 
+      endCurrencyValue = 0;
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
       appendix = '';
@@ -109,7 +108,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _multiplyByTen() {
     setState(() {
-      if (_multiplier < 1000000000) {
+      if (_multiplier < 1000000) {
         _multiplier *= 10;
       } else
         _multiplier = _multiplier;
@@ -127,7 +126,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _calculateExchangeFromDial(int init, int end, int laps) {
     int currencyIntValueToConvert = _multiplier * (end - init);
-  
+
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -139,8 +138,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   void _calculateExchangeFromButton(int init, int end) {
-    int currencyIntValueToConvert =
-        _multiplier * (end - init);
+    int currencyIntValueToConvert = _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -258,11 +256,10 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   circularSlider(context),
                   SizedBox(height: 12.0),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       divideButton(context),
-                     
                       multiplyButton(context),
                     ],
                   ),
@@ -331,9 +328,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
- 
-
-
   Widget circularSlider(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -363,7 +357,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     SizedBox(height: 16),
                     Text('${_formatIntervalValue(startingValue, endingValue)}',
                         style: Styles.sliderCurrencyValueText),
-                  
                     Text('${model.baseCurrency.alphabeticCode}',
                         style: Styles.sliderCurrencyAlphabeticCode),
                   ],
@@ -376,43 +369,9 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   String _formatIntervalValue(int init, int end) {
-    //var currencyValue = _multiplier * (end - init);
-     var currencyValue = _multiplier * (end - init);
-    
-   String currencyValueString = currencyValue.toString();
- String truncatedCurrencyValueString = '';
- String concatenatedCurrencyValueString;
-
-     if (currencyValue >= 0 && currencyValue < 100000) {
-        appendix = '';
-        truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 0);
-        concatenatedCurrencyValueString = currencyValueString;
-      } else if (currencyValue >= 100000 && currencyValue < 1000000) {
-          appendix = 'k';
-          truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 3);
-          concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
-      } else if (currencyValue >= 1000000 && currencyValue < 1000000000) {
-          appendix = 'M';
-            truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 6);
-            concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
-      }  else if (currencyValue >= 1000000000) {
-          appendix = 'B';
-            truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 9);
-            concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
-      } else {
-        appendix = '';
-        print('Yikes something is wrong, currencyValue = $currencyValue');
-concatenatedCurrencyValueString = currencyValueString;
-      }
-
-        _multiplier = _multiplier;
-
-    return concatenatedCurrencyValueString;
-    //return '$currencyValue';
+    var currencyValue = _multiplier * (end - init);
+    return '$currencyValue';
   }
-
- 
-
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(
@@ -441,11 +400,12 @@ concatenatedCurrencyValueString = currencyValueString;
               itemCount: model.quoteCurrencies.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Colors.blueGrey[300],
+                  color: Styles.cardBlueGreyColor,
                   elevation: 1,
                   //shadowColor: Styles.shadowColor,
                   borderOnForeground: false,
                   child: ListTile(
+                    contentPadding:EdgeInsets.all(6.0),
                     leading: SizedBox(
                       width: 76,
                       child: Text(

@@ -81,7 +81,8 @@ class StorageServiceImpl implements StorageService {
     final now = DateTime.now();
     DateTime lastUpdate = await _getLastRatesCacheTime();
     Duration difference = now.difference(lastUpdate);
-    return difference.inDays > 1;
+    //return difference.inDays > 1;
+    return difference.inHours > 6;
   }
 
   List<Rate> _deserializeRates(String data) {

@@ -28,10 +28,7 @@
  * THE SOFTWARE.
  */
 
-
-
 class Rate {
-
   // Use an ISO alphabetic code.
   final String baseCurrency;
 
