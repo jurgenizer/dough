@@ -57,7 +57,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_slider/flutter_circular_slider.dart';
-import 'package:flutter_knob/flutter_knob.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:dough/business_logic/view_models/calculate_screen_viewmodel.dart';
@@ -77,37 +76,6 @@ class CalculateCurrencyScreen extends StatefulWidget {
 class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   CalculateScreenViewModel model = serviceLocator<CalculateScreenViewModel>();
 
-  // knob vars
-
-  double _knobValue = 0.0;
-  double _multipliedKnobValue = 0.0;
-
-  void _setKnobValue(double knobValue) {
-    print('The initial knobValue is $knobValue');
-    _multipliedKnobValue = _multiplier * knobValue;
-    print('The multiplied knobValue is $knobValue');
-    //
-
-    int currencyIntValueToConvert =
-        _multiplier * (endingValue - startingValue) +
-            _multipliedKnobValue.toInt();
-    String currencyStringValueToConvert = currencyIntValueToConvert.toString();
-    model.calculateExchange(currencyStringValueToConvert);
-    print(
-        'The currencyValueToConvert (Knob) string is $currencyStringValueToConvert');
-
-//
-    setState(() {
-      _knobValue = knobValue;
-      _multipliedKnobValue = _multipliedKnobValue;
-    });
-  }
-
-  static const double minKnobValue = 0;
-  static const double maxKnobValue = 0.99999;
-
-  //
-
   ValueKey<DateTime> forceRebuild;
 
   int _multiplier;
@@ -117,6 +85,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   int startingValue;
   int endingValue;
+  String appendix = '';
 
   @override
   void initState() {
@@ -127,21 +96,20 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _reset() {
     setState(() {
-      //
-      _knobValue = 0.0;
-      //
+     
       _multiplier = 1;
       initCurrencyValue = 0;
-      endCurrencyValue = 0; //_generateRandomTime();
+      endCurrencyValue = 0; 
       startingValue = initCurrencyValue;
       endingValue = endCurrencyValue;
+      appendix = '';
       forceRebuild = ValueKey(DateTime.now());
     });
   }
 
   void _multiplyByTen() {
     setState(() {
-      if (_multiplier < 10000) {
+      if (_multiplier < 1000000000) {
         _multiplier *= 10;
       } else
         _multiplier = _multiplier;
@@ -158,10 +126,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   void _calculateExchangeFromDial(int init, int end, int laps) {
-    // int currencyIntValueToConvert = _multiplier * (end - init);
-    print('The _multipliedKnobValue is $_multipliedKnobValue');
-    int currencyIntValueToConvert =
-        _multiplier * (end - init) + _multipliedKnobValue.toInt();
+    int currencyIntValueToConvert = _multiplier * (end - init);
+  
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -174,7 +140,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 
   void _calculateExchangeFromButton(int init, int end) {
     int currencyIntValueToConvert =
-        _multiplier * (end - init) + _multipliedKnobValue.toInt();
+        _multiplier * (end - init);
     String currencyStringValueToConvert = currencyIntValueToConvert.toString();
     model.calculateExchange(currencyStringValueToConvert);
     print(
@@ -296,7 +262,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       divideButton(context),
-                      fineTuningKnob(context),
+                     
                       multiplyButton(context),
                     ],
                   ),
@@ -365,38 +331,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
     );
   }
 
-  Widget fineTuningKnob(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Knob(
-            value: _knobValue,
-            color: Styles.rallyPinkColor,
-            onChanged: _setKnobValue,
-            min: minKnobValue,
-            max: maxKnobValue,
-            size: 42),
-        Slider(
-            activeColor: Colors.white,
-            inactiveColor: Colors.white30,
-            value: _knobValue,
-            onChanged: _setKnobValue,
-            min: minKnobValue,
-            max: maxKnobValue),
-        Text(
-          'Value: ${_knobValue.toStringAsFixed(3)}',
-          style: Styles.minorText,
-        ),
-      ],
-    );
-  }
+ 
 
-  String _formatIntervalKnobValue() {
-    double knobCurrencyValue = _multipliedKnobValue;
-    var knobCurrencyValueString = knobCurrencyValue.toStringAsFixed(3);
-
-    return '$knobCurrencyValueString';
-  }
 
   Widget circularSlider(BuildContext context) {
     return Column(
@@ -427,8 +363,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                     SizedBox(height: 16),
                     Text('${_formatIntervalValue(startingValue, endingValue)}',
                         style: Styles.sliderCurrencyValueText),
-                    Text('${_formatIntervalKnobValue()}',
-                        style: Styles.sliderCurrencyValueText),
+                  
                     Text('${model.baseCurrency.alphabeticCode}',
                         style: Styles.sliderCurrencyAlphabeticCode),
                   ],
@@ -441,9 +376,50 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   }
 
   String _formatIntervalValue(int init, int end) {
-    var currencyValue = _multiplier * (end - init);
-    return '$currencyValue';
+    //var currencyValue = _multiplier * (end - init);
+     var currencyValue = _multiplier * (end - init);
+
+    
+   String currencyValueString = currencyValue.toString();
+ String truncatedCurrencyValueString = '';
+ String concatenatedCurrencyValueString;
+
+     if (currencyValue >= 0 && currencyValue < 100000) {
+        appendix = '';
+        truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 0);
+        concatenatedCurrencyValueString = currencyValueString;
+      } else if (currencyValue >= 100000 && currencyValue < 1000000) {
+          appendix = 'k';
+          truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 3);
+          concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
+      } else if (currencyValue >= 1000000 && currencyValue < 1000000000) {
+          appendix = 'M';
+            truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 6);
+            concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
+      }  else if (currencyValue >= 1000000000) {
+          appendix = 'B';
+            truncatedCurrencyValueString = currencyValueString.substring(0, currencyValueString.length - 9);
+            concatenatedCurrencyValueString = truncatedCurrencyValueString + appendix;
+      } else {
+        appendix = '';
+        print('Yikes something is wrong, currencyValue = $currencyValue');
+concatenatedCurrencyValueString = currencyValueString;
+      }
+
+
+
+        _multiplier = _multiplier;
+
+
+
+
+
+    return concatenatedCurrencyValueString;
+    //return '$currencyValue';
   }
+
+ 
+
 
   Expanded quoteCurrencyList(CalculateScreenViewModel model) {
     return Expanded(

@@ -18,8 +18,7 @@ dependencies:
   flutter_neumorphic: ^2.1.0+1
   flutter_circular_slider: ^2.5.0
   url_launcher: ^5.4.10
-  flutter_knob: ^0.0.2
-
+ 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
