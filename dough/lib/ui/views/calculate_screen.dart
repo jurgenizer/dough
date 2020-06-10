@@ -378,7 +378,6 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
   String _formatIntervalValue(int init, int end) {
     //var currencyValue = _multiplier * (end - init);
      var currencyValue = _multiplier * (end - init);
-
     
    String currencyValueString = currencyValue.toString();
  String truncatedCurrencyValueString = '';
@@ -406,13 +405,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
 concatenatedCurrencyValueString = currencyValueString;
       }
 
-
-
         _multiplier = _multiplier;
-
-
-
-
 
     return concatenatedCurrencyValueString;
     //return '$currencyValue';
