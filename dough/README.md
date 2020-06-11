@@ -16,7 +16,7 @@ Hat-tip also to [David Anaya](https://github.com/davidanaya/flutter-circular-sli
 
 ### TODO
 * Move some widgets out of calculate_screen.dart. There is way too much going in there, [pyramids of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) etc.
-* Fix janky code.
+* Fix my janky code.
 
 ### License
 
