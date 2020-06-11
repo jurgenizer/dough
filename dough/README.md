@@ -14,6 +14,10 @@ Exchange rate api provided by [https://exchangeratesapi.io/](https://exchangerat
 
 Hat-tip also to [David Anaya](https://github.com/davidanaya/flutter-circular-slider) for the neat Flutter Circular Slider [package](https://pub.dev/packages/flutter_circular_slider).
 
+### TODO
+* Move some widgets out of calculate_screen.dart. There is way too much going in there, [pyramids of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) etc.
+* Fix janky code.
+
 ### License
 
 [MIT](https://github.com/jurgenizer/dough/blob/master/LICENSE)
