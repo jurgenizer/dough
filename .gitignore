@@ -1,4 +1,4 @@
 .DS_Store
 
 # Google Play Store
-*.properties
+dough/android/key.properties
