@@ -351,7 +351,8 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   children: [
                     SizedBox(height: 16),
                     Text('${_formatIntervalValue(startingValue, endingValue)}',
-                        style: Styles.sliderCurrencyValueText),
+                        style: Styles.sliderCurrencyValueText,
+                        key: ValueKey('currency-value'),),
                     Text('${model.baseCurrency.alphabeticCode}',
                         style: Styles.sliderCurrencyAlphabeticCode),
                   ],
