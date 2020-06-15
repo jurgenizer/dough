@@ -147,6 +147,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
       create: (context) => model,
       child: Consumer<CalculateScreenViewModel>(
         builder: (context, model, child) => Scaffold(
+          key: ValueKey('calculate-screen'),
           appBar: AppBar(
             title: Text('Dough'),
             elevation: 0.0,
@@ -169,6 +170,7 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
             ],
           ),
           drawer: Drawer(
+            key: ValueKey('information-drawer'),
             semanticLabel: 'Menu items: about, privacy policy, licenses.',
             child: Container(
               color: Styles.appBackgroundLight,
@@ -350,11 +352,16 @@ class _CalculateCurrencyScreenState extends State<CalculateCurrencyScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 16),
-                    Text('${_formatIntervalValue(startingValue, endingValue)}',
-                        style: Styles.sliderCurrencyValueText,
-                        key: ValueKey('currency-value'),),
-                    Text('${model.baseCurrency.alphabeticCode}',
-                        style: Styles.sliderCurrencyAlphabeticCode),
+                    Text(
+                      '${_formatIntervalValue(startingValue, endingValue)}',
+                      style: Styles.sliderCurrencyValueText,
+                      key: ValueKey('currency-value'),
+                    ),
+                    Text(
+                      '${model.baseCurrency.alphabeticCode}',
+                      style: Styles.sliderCurrencyAlphabeticCode,
+                      key: ValueKey('currency-code'),
+                    ),
                   ],
                 )),
             shouldCountLaps: false,
