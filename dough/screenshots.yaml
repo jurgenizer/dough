@@ -4,7 +4,7 @@ tests:
   - test_driver/main.dart
 
 # Interim location of screenshots from tests before processing
-staging: /Users/jurgengeitner/screenshots
+staging: /Users/jurgengeitner/Documents/screenshots
 
 # A list of locales supported in app
 locales:
@@ -14,7 +14,9 @@ locales:
 devices:
   ios:
     iPhone 8:
+      frame: true
       orientation: Portrait
+      
   #   iPhone 8 Plus:
   #     orientation: Portrait
   #   iPhone X:
@@ -50,4 +52,4 @@ recording: /tmp/screenshots_record
 # If not intending to upload screenshots, images can be stored in an archive dir.
 # This over-rides output to fastlane dirs.
 # If run mode is 'archive', a directory is required for archived images.
-archive: /Users/jurgengeitner/screenshots_archive
+archive: /Users/jurgengeitner/Documents/screenshots_archive

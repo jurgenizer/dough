@@ -5,10 +5,11 @@ import 'package:test/test.dart';
 void main() {
   FlutterDriver driver;
   final config = Config();
-  
+
   //final dialFinder = find.byType('SingleCircularSlider');
   final textFinder = find.byValueKey('currency-code');
-final locateCalculateScreen =  find.byValueKey('calculate-screen');
+  final locateCalculateScreen = find.byValueKey('calculate-screen');
+  final locateChooseFavoritesButton = find.byTooltip('Choose fav currencies');
 
   group('Dough App Test', () {
     // Connect driver
@@ -24,11 +25,9 @@ final locateCalculateScreen =  find.byValueKey('calculate-screen');
     });
 
     test("Check calculate_screen", () async {
-
       await driver.waitFor(locateCalculateScreen);
       print('Found calculate-screen');
-      });
-  
+    });
 
     // Open Information drawer
     /*
@@ -40,17 +39,25 @@ final locateCalculateScreen =  find.byValueKey('calculate-screen');
       await driver.scroll(locateDrawer, -300, 0, Duration(milliseconds: 500));
     });
     */
- 
+
     test(
       'Locate Currency Code',
       () async {
-        await screenshot(driver, config, 'testing');
+        await screenshot(driver, config, '01-calculate-screen');
         expect(await driver.getText(textFinder), 'EUR');
       },
       timeout: Timeout(
         Duration(seconds: 120),
       ),
     );
+
+    // Navigate to choose_favorites.dart
+
+    test('Navigate to choose_favoritest', () async {
+      // Push the button and navigate
+      await driver.tap(locateChooseFavoritesButton);
+      await screenshot(driver, config, '02-choose-favorites');
+    });
 
     // close driver
     tearDownAll(() {
