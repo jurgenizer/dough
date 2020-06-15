@@ -2,12 +2,12 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:screenshots/screenshots.dart';
 import 'package:test/test.dart';
 
+
 void main() {
   FlutterDriver driver;
   final config = Config();
 
-  //final dialFinder = find.byType('SingleCircularSlider');
-  final textFinder = find.byValueKey('currency-code');
+   final textFinder = find.byValueKey('currency-code');
   final locateCalculateScreen = find.byValueKey('calculate-screen');
   final locateChooseFavoritesButton = find.byTooltip('Choose fav currencies');
 
@@ -29,17 +29,6 @@ void main() {
       print('Found calculate-screen');
     });
 
-    // Open Information drawer
-    /*
-    test('Check information drawer opens', () async {
-      final SerializableFinder locateDrawer =
-          find.byValueKey('information-drawer');
-      // Open the drawer
-      await driver.tap(locateDrawer);
-      await driver.scroll(locateDrawer, -300, 0, Duration(milliseconds: 500));
-    });
-    */
-
     test(
       'Locate Currency Code',
       () async {
@@ -50,6 +39,8 @@ void main() {
         Duration(seconds: 120),
       ),
     );
+
+  
 
     // Navigate to choose_favorites.dart
 
