@@ -2,12 +2,11 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:screenshots/screenshots.dart';
 import 'package:test/test.dart';
 
-
 void main() {
   FlutterDriver driver;
   final config = Config();
 
-   final textFinder = find.byValueKey('currency-code');
+  final textFinder = find.byValueKey('currency-code');
   final locateCalculateScreen = find.byValueKey('calculate-screen');
   final locateChooseFavoritesButton = find.byTooltip('Choose fav currencies');
 
@@ -39,8 +38,6 @@ void main() {
         Duration(seconds: 120),
       ),
     );
-
-  
 
     // Navigate to choose_favorites.dart
 
