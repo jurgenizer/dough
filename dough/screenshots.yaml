@@ -5,8 +5,8 @@ tests:
   - test_driver/app_test.dart
 
 # Interim location of screenshots from tests before processing
-staging: /Users/builder/build_outputs
-#staging: /Users/jurgengeitner/Documents/screenshots
+#staging: /Users/builder/build_outputs
+staging: /Users/jurgengeitner/Documents/screenshots
 
 # A list of locales supported in app
 locales:
@@ -15,35 +15,34 @@ locales:
 # A list of devices to run tests on
 devices:
   ios:
-    iPhone 8:
-      frame: true
-      orientation: Portrait
     iPhone 8 Plus:
-      orientation: Portrait
-    iPhone X:
-      orientation: Portrait
-    iPhone 11 Pro Max:
-      orientation: Portrait
-    iPhone SE:
-      orientation: Portrait
+      orentation: Portrait
+      frame: false
+    iPhone Xs:
+      orentation: Portrait
+      frame: false
+    iPhone Xs Max:
+      orentation: Portrait
+      frame: false
     iPad Pro (12.9-inch) (3rd generation):
-      orientation: Portrait
-    iPad Pro (9.7-inch):
-      orientation: LandscapeRight
-  android:
-    Nexus 5X:
-      orientation:
-        - Portrait
-    Nexus 6P:
-      orientation:
-        - LandscapeRight
-        - Portrait
-    Nexus 9:
-      orientation:
-        - Portrait
+      orentation: Portrait
+      frame: false
+
+    
+  # android:
+  #   Nexus 5X:
+  #     orientation:
+  #       - Portrait
+  #   Nexus 6P:
+  #     orientation:
+  #       - LandscapeRight
+  #       - Portrait
+  #   Nexus 9:
+  #     orientation:
+  #       - Portrait
 
 # Frame screenshots
-frame: true
+frame: false
 
 # Run mode can be one of 'normal' (default), 'recording', 'comparison' or 'archive'.
 
@@ -53,5 +52,5 @@ recording: /Users/builder/screenshots_record
 # If not intending to upload screenshots, images can be stored in an archive dir.
 # This over-rides output to fastlane dirs.
 # If run mode is 'archive', a directory is required for archived images.
-archive: /Users/builder/exported_artefacts
-#archive: /Users/jurgengeitner/Documents/screenshots/exported_artefacts
+#archive: /Users/builder/exported_artefacts
+archive: /Users/jurgengeitner/Documents/screenshots/exported_artefacts
