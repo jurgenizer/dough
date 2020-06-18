@@ -2,11 +2,10 @@
 # Note: flutter driver expects a pair of files eg, main.dart and main_test.dart
 tests:
   - test_driver/app.dart
-  - test_driver/app_test.dart
+  #- test_driver/app_test.dart
 
 # Interim location of screenshots from tests before processing
-staging: /Users/builder/build_outputs
-#staging: /Users/jurgengeitner/Documents/screenshots
+staging: Documents/dough-supplementary-files/build_outputs
 
 # A list of locales supported in app
 locales:
@@ -27,30 +26,27 @@ devices:
   #   iPad Pro (12.9-inch) (3rd generation):
   #     orentation: Portrait
   #     frame: false
-
-    
+   
   android:
-    Nexus 5X:
-      orientation:
-        - Portrait
-    Nexus 6P:
-      orientation:
-        - LandscapeRight
-        - Portrait
+    # Nexus 5X:
+    #   orientation: Portrait
+    #   frame: true
+    # Nexus 6P:
+    #   orientation: Portrait
+    #   frame: true
     Nexus 9:
-      orientation:
-        - Portrait
+      orientation: Portrait
+      frame: true
 
 # Frame screenshots
-frame: false
+frame: true
 
 # Run mode can be one of 'normal' (default), 'recording', 'comparison' or 'archive'.
 
 # If run mode is 'recording' or 'comparison', a directory is required for recorded images.
-recording: /Users/builder/screenshots_record
+recording: Documents/dough-supplementary-files/screenshots_record
 
 # If not intending to upload screenshots, images can be stored in an archive dir.
 # This over-rides output to fastlane dirs.
 # If run mode is 'archive', a directory is required for archived images.
-archive: /Users/builder/exported_artefacts
-#archive: /Users/jurgengeitner/Documents/screenshots/exported_artefacts
+archive: Documents/dough-supplementary-files/exported_artefacts

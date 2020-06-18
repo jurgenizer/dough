@@ -2,7 +2,6 @@
 # Note: flutter driver expects a pair of files eg, main.dart and main_test.dart
 tests:
   - test_driver/app.dart
-  - test_driver/app_test.dart
 
 # Interim location of screenshots from tests before processing
 staging: /Users/builder/build_outputs

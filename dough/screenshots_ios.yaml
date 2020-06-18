@@ -2,11 +2,9 @@
 # Note: flutter driver expects a pair of files eg, main.dart and main_test.dart
 tests:
   - test_driver/app.dart
-  - test_driver/app_test.dart
 
 # Interim location of screenshots from tests before processing
 staging: /Users/builder/build_outputs
-#staging: /Users/jurgengeitner/Documents/screenshots
 
 # A list of locales supported in app
 locales:
@@ -17,16 +15,16 @@ devices:
   ios:
     iPhone 8 Plus:
       orentation: Portrait
-      frame: false
-    # iPhone Xs:
-    #   orentation: Portrait
-    #   frame: false
-    # iPhone Xs Max:
-    #   orentation: Portrait
-    #   frame: false
-    # iPad Pro (12.9-inch) (3rd generation):
-    #   orentation: Portrait
-    #   frame: false
+      frame: true
+    iPhone Xs:
+      orentation: Portrait
+      frame: true
+    iPhone Xs Max:
+      orentation: Portrait
+      frame: true
+    iPad Pro (12.9-inch) (3rd generation):
+      orentation: Portrait
+      frame: true
 
     
   # android:
@@ -42,7 +40,7 @@ devices:
   #       - Portrait
 
 # Frame screenshots
-frame: false
+frame: true
 
 # Run mode can be one of 'normal' (default), 'recording', 'comparison' or 'archive'.
 
@@ -53,4 +51,3 @@ recording: /Users/builder/screenshots_record
 # This over-rides output to fastlane dirs.
 # If run mode is 'archive', a directory is required for archived images.
 archive: /Users/builder/exported_artefacts
-#archive: /Users/jurgengeitner/Documents/screenshots/exported_artefacts
