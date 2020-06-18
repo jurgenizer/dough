@@ -18,15 +18,15 @@ devices:
     iPhone 8 Plus:
       orentation: Portrait
       frame: false
-    iPhone Xs:
-      orentation: Portrait
-      frame: false
-    iPhone Xs Max:
-      orentation: Portrait
-      frame: false
-    iPad Pro (12.9-inch) (3rd generation):
-      orentation: Portrait
-      frame: false
+    # iPhone Xs:
+    #   orentation: Portrait
+    #   frame: false
+    # iPhone Xs Max:
+    #   orentation: Portrait
+    #   frame: false
+    # iPad Pro (12.9-inch) (3rd generation):
+    #   orentation: Portrait
+    #   frame: false
 
     
   # android:
