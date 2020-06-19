@@ -13,18 +13,18 @@ locales:
 # A list of devices to run tests on
 devices:
   ios:
-    iPhone 8 Plus:
-      orentation: Portrait
-      frame: true
+    # iPhone 8 Plus:
+    #   orentation: Portrait
+    #   frame: true
     iPhone Xs:
       orentation: Portrait
       frame: true
-    iPhone Xs Max:
-      orentation: Portrait
-      frame: true
-    iPad Pro (12.9-inch) (3rd generation):
-      orentation: Portrait
-      frame: true
+    # iPhone Xs Max:
+    #   orentation: Portrait
+    #   frame: true
+    # iPad Pro (12.9-inch) (3rd generation):
+    #   orentation: Portrait
+    #   frame: true
 
     
   # android:
