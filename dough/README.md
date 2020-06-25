@@ -2,7 +2,7 @@
 
 An experimental Flutter currency convertor app for Android and iOS.
 
-![Made With Flutter](https://img.shields.io/badge/-Made%20With%20Flutter-informational?style=flat-square&logo=flutter)
+![Made With Flutter](https://img.shields.io/badge/-Made%20With%20Flutter-informational?style=flat&logo=flutter)
 <!--![GitHub](https://img.shields.io/github/license/jurgenizer/dough?style=flat-square)-->
 
 [![Codemagic build status](https://api.codemagic.io/apps/5ee33fa0ac4999001507a6f8/5ee396064d6c121f23d2c7dc/status_badge.svg)](https://codemagic.io/apps/5ee33fa0ac4999001507a6f8/5ee396064d6c121f23d2c7dc/latest_build)
